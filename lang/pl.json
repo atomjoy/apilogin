@@ -1,0 +1,54 @@
+{
+	"apilogin.email.password.welcome": "Witaj",
+	"apilogin.email.password.subject": "👋 Twoje nowe hasło.",
+	"apilogin.email.password.message": "Poniżej znajdziesz swoje nowe hasło.",
+
+	"apilogin.email.register.welcome": "Witaj",
+	"apilogin.email.register.subject": "👋 Aktywacja konta.",
+	"apilogin.email.register.message": "Ta wiadomość e-mail jest wysyłana na adres e-mail, który został zarejestrowany na naszej stronie. Aby potwierdzić adres email, kliknij w poniższy link.",
+	"apilogin.email.register.button": "Potwierdzam Email",
+
+	"apilogin.email.regards": "Pozdrawiamy",
+	"apilogin.email.regards_text": "Miłego dnia!",
+	"apilogin.email.rights": "Wszelkie Prawa Zastrzeżone.",
+
+	"apilogin.logged.authenticated": "Zalogowany.",
+	"apilogin.logged.unauthenticated": "Nie zalogowany.",
+
+	"apilogin.locale.success": "Zmieniono język.",
+	"apilogin.locale.error": "Nie zmieniono języka.",
+
+	"apilogin.login.failed": "Te dane uwierzytelniające nie pasują do naszych danych.",
+	"apilogin.login.password": "Podane hasło jest nieprawidłowe.",
+	"apilogin.login.throttle": "Zbyt wiele prób logowania. Spróbuj ponownie za :seconds sekund.",
+	"apilogin.login.unverified": "Twój adres e-mail nie został zweryfikowany.",
+	"apilogin.login.authenticated": "Zalogowany.",
+
+	"apilogin.reset.password.invalid": "Konto z takim adresem email nie istnieje.",
+	"apilogin.reset.password.success": "Nowe hasło zostało wysłane na podany adres email.",
+	"apilogin.reset.password.error": "Hasło nie zostało zmienione.",
+	"apilogin.reset.password.email.error": "Nie można wysłać e-maila, spróbuj ponownie później.",
+
+	"apilogin.register.success": "Konto zostało utworzone, potwierdź swój adres e-mail.",
+	"apilogin.register.error": "Coś poszło nie tak, spróbuj ponownie później.",
+	"apilogin.register.email.error": "Nie można wysłać e-maila aktywacyjnego, spróbuj zresetować hasło.",
+
+	"apilogin.activate.success": "Adres email został potwierdzony.",
+	"apilogin.activate.error": "Nie można potwierdzić adresu email.",
+	"apilogin.activate.invalid": "Niepoprawny kod aktywacyjny",
+	"apilogin.activate.already": "Adres email jest już potwierdzony.",
+
+	"apilogin.confirm.invalid.current.password": "Niepoprawne aktualne hasło.",
+	"apilogin.confirm.unauthenticated": "Zalogowano.",
+	"apilogin.confirm.confirmed": "Potwierdzono.",
+
+	"apilogin.change.success": "Hasło zostało zmienione.",
+	"apilogin.change.error": "Hasło nie zostało zmienione.",
+	"apilogin.change.unauthenticated": "Nie zalogowany.",
+	"apilogin.change.invalid.current.password": "Niepoprawne aktualne hasło.",
+
+	"apilogin.logout.success": "Wylogowany",
+	"apilogin.logout.error": "Nie wylogowany.",
+
+	"apilogin.middleware.not.acceptable": "Not Acceptable."
+}

@@ -1,0 +1,54 @@
+{
+	"apilogin.email.password.welcome": "Welcome",
+	"apilogin.email.password.subject": "👋 Your new password.",
+	"apilogin.email.password.message": "This is your new password.",
+
+	"apilogin.email.register.welcome": "Welcome",
+	"apilogin.email.register.subject": "👋 Account activation.",
+	"apilogin.email.register.message": "This activation e-mail is sent to the e-mail address that you registered on our site. To activate your account, please click on the link below.",
+	"apilogin.email.register.button": "Confirm Email",
+
+	"apilogin.email.regards": "Regards",
+	"apilogin.email.regards_text": "Have a nice day!",
+	"apilogin.email.rights": "All Rights resetved.",
+
+	"apilogin.logged.authenticated": "Authenticated.",
+	"apilogin.logged.unauthenticated": "Unauthenticated.",
+
+	"apilogin.locale.success": "Locale has been changed.",
+	"apilogin.locale.error": "Locale has not been changed.",
+
+	"apilogin.login.failed": "These credentials do not match our records.",
+	"apilogin.login.password": "The provided password is incorrect.",
+	"apilogin.login.throttle": "Too many login attempts. Please try again in :seconds seconds.",
+	"apilogin.login.unverified": "Your email address is not verified.",
+	"apilogin.login.authenticated": "Authenticated.",
+
+	"apilogin.reset.password.invalid": "An account with this email address does not exist.",
+	"apilogin.reset.password.success": "A new password has been sent to the e-mail address provided.",
+	"apilogin.reset.password.error": "Password has not been updated.",
+	"apilogin.reset.password.email.error": "Unable to send e-mail, please try again later.",
+
+	"apilogin.register.success": "Account has been created, please confirm your email address.",
+	"apilogin.register.error": "Something went wrong, please try again later.",
+	"apilogin.register.email.error": "Unable to send activation email, please try to reset your password.",
+
+	"apilogin.activate.success": "Email has been confirmed.",
+	"apilogin.activate.error": "Email has not been confirmed.",
+	"apilogin.activate.invalid": "Invalid activation code.",
+	"apilogin.activate.already": "The email address has already been confirmed.",
+
+	"apilogin.confirm.invalid.current.password": "Invalid current password.",
+	"apilogin.confirm.unauthenticated": "Unauthenticated.",
+	"apilogin.confirm.confirmed": "Confirmed.",
+
+	"apilogin.change.success": "Password has been updated.",
+	"apilogin.change.error": "Password has not been updated.",
+	"apilogin.change.unauthenticated": "Unauthenticated.",
+	"apilogin.change.invalid.current.password": "Invalid current password.",
+
+	"apilogin.logout.success": "Logged out.",
+	"apilogin.logout.error": "Logged out error.",
+
+	"apilogin.middleware.not.acceptable": "Not Acceptable."
+}
