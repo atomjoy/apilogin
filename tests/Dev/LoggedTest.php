@@ -22,15 +22,6 @@ class LoggedTest extends TestCase
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Authenticated.'
 		]);
-
-		$response = $this->withCookies([
-			'dummy_token' => 'token12345'
-		])->getJson('/web/api/logged');
-		$response->assertStatus(200)->assertJson([
-			'message' => 'Authenticated.'
-		])->assertJsonStructure([
-			'message', 'user'
-		])->assertJsonPath('user.email', $user->email)->assertCookie('dummy_token', 'token5678');
 	}
 
 	/** @test */

@@ -33,4 +33,17 @@ class CsrfTest extends TestCase
 
 		// $cookies = $response->headers->getCookies();
 	}
+
+	function test_cookie()
+	{
+		$response = $this->withCookies([
+			'dummy_token' => 'token12345'
+		])->getJson('/web/api/csrf');
+
+		$response->assertStatus(200)->assertJson([
+			'message' => 'Csrf token created.'
+		])->assertJsonStructure([
+			'message', 'counter'
+		])->assertCookie('dummy_token', 'token5678');
+	}
 }
