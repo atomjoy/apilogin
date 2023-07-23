@@ -17,12 +17,8 @@ class PasswordConfirmController extends Controller
 		$valid = $request->validated();
 
 		if (Auth::check()) {
-			$user = Auth::user();
-
-			// dd($valid['password']);
-
-			if (Hash::check($valid['password'], $user->password)) {
-				PasswordConfirm::dispatch($user);
+			if (Hash::check($valid['password'], Auth::user()->password)) {
+				PasswordConfirm::dispatch(Auth::user());
 				return response()->json(['message' => __('apilogin.confirm.confirmed')], 200);
 			} else {
 				// PasswordConfirmError::dispatch($valid);

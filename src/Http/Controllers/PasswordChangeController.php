@@ -27,7 +27,6 @@ class PasswordChangeController extends Controller
 
 					$user->update([
 						'password' => Hash::make($valid['password']),
-						'ip' => $request->ip()
 					]);
 
 					PasswordChange::dispatch($user);

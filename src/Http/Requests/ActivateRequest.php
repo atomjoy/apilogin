@@ -41,5 +41,9 @@ class ActivateRequest extends FormRequest
 	public function testDatabase()
 	{
 		// Mock request method and throw error in controller if needed from tests
+		// Or use putenv('TEST_DATABASE=true') in your tests to throw an error
+		if (env('TEST_DATABASE', false) == true) {
+			throw new Exception('TEST_DATABASE_REGISTER', 422);
+		}
 	}
 }
