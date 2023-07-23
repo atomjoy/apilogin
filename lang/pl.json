@@ -47,7 +47,7 @@
 	"apilogin.change.unauthenticated": "Nie zalogowany.",
 	"apilogin.change.invalid.current.password": "Niepoprawne aktualne hasło.",
 
-	"apilogin.logout.success": "Wylogowany",
+	"apilogin.logout.success": "Wylogowany.",
 	"apilogin.logout.error": "Nie wylogowany.",
 
 	"apilogin.middleware.not.acceptable": "Not Acceptable."
