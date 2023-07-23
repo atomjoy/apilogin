@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class PasswordResetValidationTest extends TestCase
@@ -23,7 +24,10 @@ class PasswordResetValidationTest extends TestCase
 	{
 		Event::fake(PasswordResetError::class);
 
-		$user = User::factory()->create();
+		$user = User::factory()->create([
+			'email' => uniqid() . '@gmail.com',
+			'password' => Hash::make('Password123#')
+		]);
 
 		$valid = [
 			'email' => $user->email,

@@ -24,6 +24,7 @@ class PasswordChangeTest extends TestCase
 
 		// Auth user
 		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
 			'password' => Hash::make('Password123#')
 		]);
 

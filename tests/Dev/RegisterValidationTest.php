@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class RegisterValidationTest extends TestCase
@@ -23,7 +24,10 @@ class RegisterValidationTest extends TestCase
 	{
 		Event::fake(RegisterUserError::class);
 
-		$user = User::factory()->make();
+		$user = User::factory()->make([
+			'email' => uniqid() . '@gmail.com',
+			'password' => Hash::make('Password123#')
+		]);
 
 		// Invalid User::create() validation data without password and password_confirmation
 		// will throw error event and exception from controller index method

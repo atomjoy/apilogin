@@ -11,6 +11,7 @@ use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -25,7 +26,7 @@ class RegisterTest extends TestCase
 		Mail::fake();
 
 		$name = 'Alex';
-		$email = uniqid() . '@laravel.com';
+		$email = uniqid() . '@gmail.com';
 
 		$response = $this->postJson('web/api/register', [
 			'name' => $name,
@@ -100,7 +101,10 @@ class RegisterTest extends TestCase
 		// Mail message
 		Mail::fake();
 
-		$user = User::factory()->create();
+		$user = User::factory()->create([
+			'email' => uniqid() . '@gmail.com',
+			'password' => Hash::make('Password123#')
+		]);
 		$event = new RegisterUser($user, uniqid());
 		$listener = new RegisterUserNotification();
 		$listener->handle($event);
@@ -128,7 +132,10 @@ class RegisterTest extends TestCase
 	{
 		Event::fake();
 
-		$user = User::factory()->create();
+		$user = User::factory()->create([
+			'email' => uniqid() . '@gmail.com',
+			'password' => Hash::make('Password123#')
+		]);
 		$event = new RegisterUser($user);
 		$listener = new RegisterUserNotification();
 		$listener->handle($event);
@@ -162,7 +169,10 @@ class RegisterTest extends TestCase
 	/** @test */
 	function email_duplicated_error()
 	{
-		$user = User::factory()->create();
+		$user = User::factory()->create([
+			'email' => uniqid() . '@gmail.com',
+			'password' => Hash::make('Password123#')
+		]);
 
 		$res = $this->postJson('/web/api/register', [
 			'name' => $user->name,
@@ -211,7 +221,10 @@ class RegisterTest extends TestCase
 
 	function test_error_password()
 	{
-		$user = User::factory()->make();
+		$user = User::factory()->make([
+			'email' => uniqid() . '@gmail.com',
+			'password' => Hash::make('Password123#')
+		]);
 
 		$res = $this->postJson('/web/api/register', [
 			'name' => $user->name,
@@ -227,7 +240,10 @@ class RegisterTest extends TestCase
 
 	function test_error_password_confirmation()
 	{
-		$user = User::factory()->make();
+		$user = User::factory()->make([
+			'email' => uniqid() . '@gmail.com',
+			'password' => Hash::make('Password123#')
+		]);
 
 		$res = $this->postJson('/web/api/register', [
 			'name' => $user->name,
@@ -255,7 +271,10 @@ class RegisterTest extends TestCase
 	/** @test */
 	function http_validate_user()
 	{
-		$user = User::factory()->make();
+		$user = User::factory()->make([
+			'email' => uniqid() . '@gmail.com',
+			'password' => Hash::make('Password123#')
+		]);
 
 		$res = $this->postJson('/web/api/register', [
 			'name' => $user->name,

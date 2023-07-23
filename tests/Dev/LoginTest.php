@@ -21,9 +21,10 @@ class LoginTest extends TestCase
 	 */
 	public function test_user_login(): void
 	{
-		// Auth::logout();
+		Auth::logout();
 
 		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
 			'password' => Hash::make('Password123#'),
 		]);
 
@@ -64,6 +65,7 @@ class LoginTest extends TestCase
 	function login_user_email_unverified()
 	{
 		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
 			'password' => Hash::make('Password123#'),
 			'email_verified_at' => null
 		]);
@@ -85,6 +87,7 @@ class LoginTest extends TestCase
 		Event::fake();
 
 		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
 			'password' => Hash::make('Password123#'),
 		]);
 
@@ -109,6 +112,7 @@ class LoginTest extends TestCase
 	function login_user_errors()
 	{
 		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
 			'password' => Hash::make('Password123#'),
 		]);
 
@@ -153,6 +157,7 @@ class LoginTest extends TestCase
 	function login_user_soft_deleted()
 	{
 		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
 			'password' => Hash::make('Password123#@!'),
 		]);
 
@@ -185,6 +190,7 @@ class LoginTest extends TestCase
 		Event::fake();
 
 		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
 			'password' => Hash::make('Password123#'),
 		]);
 
@@ -217,6 +223,7 @@ class LoginTest extends TestCase
 		Event::fake();
 
 		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
 			'password' => Hash::make('Password123#'),
 		]);
 		$password = 'Password123#Error';
