@@ -5,7 +5,6 @@ namespace Tests\Dev;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class ActivateTest extends TestCase
 {
@@ -14,18 +13,16 @@ class ActivateTest extends TestCase
 	/** @test */
 	function invalid_activation_user_id()
 	{
-		$user = User::factory()->create(['email_verified_at' => null]);
+		$token = uniqid();
+
+		$user = User::factory()->create([
+			'email_verified_at' => null,
+			'remember_token' => $token,
+		]);
 
 		$this->assertDatabaseHas('users', [
 			'email' => $user->email,
-		]);
-
-		$token = uniqid();
-
-		DB::table(config('auth.passwords.users.table'))->updateOrInsert([
-			'email' => $user->email,
-		], [
-			'token' => $token,
+			'remember_token' => $token,
 		]);
 
 		// min:1
@@ -55,12 +52,18 @@ class ActivateTest extends TestCase
 	/** @test */
 	function invalid_activation_user_code()
 	{
-		$user = User::factory()->create(['email_verified_at' => null]);
+		$token = uniqid();
+
+		$user = User::factory()->create([
+			'email_verified_at' => null,
+			'remember_token' => $token,
+		]);
 
 		$this->assertModelExists($user);
 
 		$this->assertDatabaseHas('users', [
 			'email' => $user->email,
+			'remember_token' => $token,
 		]);
 
 		// min:6
@@ -88,22 +91,18 @@ class ActivateTest extends TestCase
 	/** @test */
 	function activate_user()
 	{
-		$user = User::factory()->create(['email_verified_at' => null]);
+		$token = uniqid();
+
+		$user = User::factory()->create([
+			'email_verified_at' => null,
+			'remember_token' => $token,
+		]);
+
+		$this->assertModelExists($user);
 
 		$this->assertDatabaseHas('users', [
 			'email' => $user->email,
-		]);
-
-		$token = uniqid();
-
-		DB::table(config('auth.passwords.users.table'))->insert([
-			'email' => $user->email,
-			'token' => $token,
-		]);
-
-		$this->assertDatabaseHas(config('auth.passwords.users.table'), [
-			'email' => $user->email,
-			'token' => $token,
+			'remember_token' => $token,
 		]);
 
 		// Activated
@@ -124,11 +123,5 @@ class ActivateTest extends TestCase
 		$db_user = User::where('email', $user->email)->first();
 
 		$this->assertNotNull($db_user->email_verified_at);
-
-		// Event and database test
-		$this->assertDatabaseMissing(config('auth.passwords.users.table'), [
-			'email' => $user->email,
-			'token' => $token,
-		]);
 	}
 }

@@ -4,7 +4,6 @@ namespace Atomjoy\Apilogin\Listeners;
 
 use App\Models\User;
 use Atomjoy\Apilogin\Events\ActivateUser;
-use Illuminate\Support\Facades\DB;
 
 class ActivateUserNotification
 {
@@ -15,8 +14,8 @@ class ActivateUserNotification
 
 	public function deletePasswordToken(User $user)
 	{
-		DB::table(config('auth.passwords.users.table'))
-			->where('email', $user->email)
-			->delete();
+		$user->forceFill([
+			'remember_token' => null
+		])->save();
 	}
 }

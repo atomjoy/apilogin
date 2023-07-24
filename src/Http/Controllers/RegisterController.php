@@ -24,9 +24,10 @@ class RegisterController extends Controller
 				'name' => $valid['name'],
 				'email' => $valid['email'],
 				'password' => Hash::make($valid['password']),
+				'remember_token' => $this->createPasswordToken(),
 			]);
 
-			RegisterUser::dispatch($user, $this->createPasswordToken());
+			RegisterUser::dispatch($user);
 
 			return response()->json([
 				'message' => __("apilogin.register.success"),
@@ -41,6 +42,6 @@ class RegisterController extends Controller
 
 	public function createPasswordToken()
 	{
-		return substr(uniqid(md5(time())), 0, rand(16, 21));
+		return substr(uniqid(md5(microtime())), 0, rand(16, 21));
 	}
 }

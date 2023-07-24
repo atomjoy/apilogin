@@ -22,7 +22,6 @@ class RegisterUser
 	 */
 	public function __construct(
 		public User $user,
-		public $token = '',
 	) {
 	}
 

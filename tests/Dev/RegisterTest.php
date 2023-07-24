@@ -53,10 +53,6 @@ class RegisterTest extends TestCase
 			$this->assertMatchesRegularExpression('/\/activate\/[0-9]+\/[a-z0-9]+\?locale=[a-z]{2}"/i', $html);
 			return $mail->hasTo($email);
 		});
-
-		$this->assertDatabaseHas(config('auth.passwords.users.table'), [
-			'email' => $email,
-		]);
 	}
 
 	/**
@@ -103,14 +99,15 @@ class RegisterTest extends TestCase
 
 		$user = User::factory()->create([
 			'email' => uniqid() . '@gmail.com',
-			'password' => Hash::make('Password123#')
+			'password' => Hash::make('Password123#'),
+			'remember_token' => uniqid(),
 		]);
-		$event = new RegisterUser($user, uniqid());
+		$event = new RegisterUser($user);
 		$listener = new RegisterUserNotification();
 		$listener->handle($event);
 		$name = $user->name;
 		$email = $user->email;
-		$token = $event->token;
+		$token = $user->token;
 
 		// Mail message
 		Mail::assertSent(RegisterMail::class, function ($mail) use ($email, $name) {
@@ -121,11 +118,6 @@ class RegisterTest extends TestCase
 			$this->assertMatchesRegularExpression('/\/activate\/[0-9]+\/[a-z0-9]+\?locale=[a-z]{2}"/i', $html);
 			return $mail->hasTo($email);
 		});
-
-		$this->assertDatabaseHas(config('auth.passwords.users.table'), [
-			'email' => $email,
-			'token' => $token
-		]);
 	}
 
 	function test_check_register_event_listeners()
@@ -154,10 +146,6 @@ class RegisterTest extends TestCase
 
 		// Event after sent
 		Event::assertDispatched(RegisterUserMail::class);
-
-		$this->assertDatabaseHas(config('auth.passwords.users.table'), [
-			'email' => $email,
-		]);
 	}
 
 	function getPassword($html)

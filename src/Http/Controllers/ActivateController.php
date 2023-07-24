@@ -10,7 +10,6 @@ use Atomjoy\Apilogin\Events\ActivateUserInvalid;
 use Atomjoy\Apilogin\Exceptions\JsonException;
 use Atomjoy\Apilogin\Http\Requests\ActivateRequest;
 use Exception;
-use Illuminate\Support\Facades\DB;
 
 class ActivateController extends Controller
 {
@@ -29,12 +28,10 @@ class ActivateController extends Controller
 				], 200);
 			}
 
-			$pass = DB::table(config('auth.passwords.users.table'))
-				->where('email', $user->email)
-				->first();
-
-			if (hash_equals($pass->token ?? '', $valid['code'])) {
-				$user->forceFill(['email_verified_at' => now()])->save();
+			if (hash_equals($user->remember_token ?? '', $valid['code'])) {
+				$user->forceFill([
+					'email_verified_at' => now()
+				])->save();
 
 				ActivateUser::dispatch($user);
 				return response()->json([
