@@ -33,7 +33,7 @@ class ActivateController extends Controller
 				->where('email', $user->email)
 				->first();
 
-			if (hash_equals($pass->token, $valid['code'])) {
+			if (hash_equals($pass->token ?? '', $valid['code'])) {
 				$user->forceFill(['email_verified_at' => now()])->save();
 
 				ActivateUser::dispatch($user);
