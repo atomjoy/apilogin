@@ -81,7 +81,7 @@ class ActivateTest extends TestCase
 		$res = $this->getJson('/web/api/activate/' . $user->id . '/errorcode123');
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'Email has not been confirmed.'
+			'message' => 'Invalid activation code.'
 		]);
 	}
 
