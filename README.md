@@ -1,6 +1,6 @@
 # Laravel api login
 
-Install with compoer and update.
+Install with composer and update.
 
 ## Databases
 
@@ -55,6 +55,18 @@ Copy testsuite Apilogin from phpunit.xml
   <directory suffix="Test.php">./vendor/atomjoy/apilogin/tests/Dev</directory>
 </testsuite>
 ```
+
+### Comment fallback route
+
+Comment the fallback route while testing!
+
+```php
+<?php
+// Vue catch all
+// Route::fallback(function () {
+// 	return view('vue');
+// });
+?>
 
 ### Run tests
 
