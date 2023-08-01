@@ -58,14 +58,17 @@ Copy testsuite Apilogin from phpunit.xml
 
 ### Comment fallback route
 
-Comment the fallback route while testing!
+Chenge or comment the fallback route while testing!
 
 ```php
 <?php
-// Vue catch all
-// Route::fallback(function () {
-// 	return view('vue');
-// });
+// Disable in testing
+if (!app()->runningUnitTests()) {
+	// Vue catch all
+	Route::fallback(function () {
+		return view('vue');
+	});
+}
 ```
 
 ### Run tests
