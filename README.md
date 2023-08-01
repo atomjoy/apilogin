@@ -66,7 +66,7 @@ Comment the fallback route while testing!
 // Route::fallback(function () {
 // 	return view('vue');
 // });
-?>
+```
 
 ### Run tests
 
