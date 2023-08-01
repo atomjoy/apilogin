@@ -24,8 +24,11 @@ class RegisterController extends Controller
 				'name' => $valid['name'],
 				'email' => $valid['email'],
 				'password' => Hash::make($valid['password']),
-				'remember_token' => $this->createPasswordToken(),
 			]);
+
+			$user->forceFill([
+				'remember_token' => $this->createPasswordToken(),
+			])->save();
 
 			RegisterUser::dispatch($user);
 
