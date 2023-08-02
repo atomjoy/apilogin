@@ -45,6 +45,13 @@ class RegisterTest extends TestCase
 			'email' => $email,
 		]);
 
+		$user = User::where([
+			'name' => $name,
+			'email' => $email,
+		])->first();
+
+		$this->assertNotNull($user->remember_token);
+
 		Mail::assertSent(RegisterMail::class, function ($mail) use ($email, $name) {
 			$mail->build();
 			$html = $mail->render();
