@@ -70,7 +70,7 @@ class RegisterTest extends TestCase
 		Event::fake();
 
 		$name = 'Alex';
-		$email = uniqid() . '@laravel.com';
+		$email = uniqid() . '@gmail.com';
 
 		$response = $this->postJson('web/api/register', [
 			'name' => $name,

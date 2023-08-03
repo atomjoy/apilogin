@@ -8,6 +8,11 @@
 	"apilogin.email.register.message": "This activation e-mail is sent to the e-mail address that you registered on our site. To activate your account, please click on the link below.",
 	"apilogin.email.register.button": "Confirm Email",
 
+	"apilogin.email.change.welcome": "Welcome",
+	"apilogin.email.change.subject": "👋 Account e-mail change.",
+	"apilogin.email.change.message": "Confirm the change of e-mail address by clicking on the link. You must be logged in to your account. The code is valid for 1 hour.",
+	"apilogin.email.change.button": "Change Email",
+
 	"apilogin.email.regards": "Regards",
 	"apilogin.email.regards_text": "Have a nice day!",
 	"apilogin.email.rights": "All Rights resetved.",
@@ -50,5 +55,12 @@
 	"apilogin.logout.success": "Logged out.",
 	"apilogin.logout.error": "Logged out error.",
 
-	"apilogin.middleware.not.acceptable": "Not Acceptable."
+	"apilogin.middleware.not.acceptable": "Not Acceptable.",
+
+	"apilogin.email.change.success": "The e-mail with the code has been sent.",
+	"apilogin.email.change.error": "Something went wrong, please try again later.",
+	"apilogin.email.change.email.error": "Unable to send email with code, please try to change your email later.",
+
+	"apilogin.email.change.confirm.success": "Email address has been updated. Refresh panel page.",
+	"apilogin.email.change.confirm.error": "Email address has not been updated."
 }

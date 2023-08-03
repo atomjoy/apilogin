@@ -2,36 +2,25 @@
 
 namespace Atomjoy\Apilogin\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\Rules\Password;
 
-class PasswordChangeRequest extends FormRequest
+class EmailChangeConfirmRequest extends FormRequest
 {
 	protected $stopOnFirstFailure = true;
 
 	public function authorize()
 	{
-		if (auth()->user() instanceof User) {
-			return true; // Allow logged
-		}
-
-		return false;
+		return Auth::check(); // Allow logged
 	}
 
 	public function rules()
 	{
 		return [
-			'password_current' => 'required',
-			'password' => [
-				'required',
-				Password::min(11)->letters()->mixedCase()->numbers()->symbols(),
-				'confirmed',
-				'max:50',
-			],
-			'password_confirmation' => 'required',
+			'id' => 'required|numeric|min:1',
+			'code' => 'required|string|min:6|max:50',
 		];
 	}
 
@@ -44,9 +33,10 @@ class PasswordChangeRequest extends FormRequest
 
 	function prepareForValidation()
 	{
-		$this->merge(
-			collect(request()->json()->all())->only(['password_current', 'password', 'password_confirmation'])->toArray()
-		);
+		$this->merge([
+			'id' => (string) request()->route('id'),
+			'code' => (string) trim(strip_tags(request()->route('code')))
+		]);
 	}
 
 	public function testDatabase()
@@ -54,7 +44,7 @@ class PasswordChangeRequest extends FormRequest
 		// Mock request method and throw error in controller if needed from tests
 		// Or use putenv('TEST_DATABASE=true') in your tests to throw an error
 		if (env('TEST_DATABASE', false) == true) {
-			throw new Exception('TEST_DATABASE_PASSWORD', 422);
+			throw new Exception('TEST_DATABASE_REGISTER', 422);
 		}
 	}
 }

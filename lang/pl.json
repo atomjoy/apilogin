@@ -8,6 +8,11 @@
 	"apilogin.email.register.message": "Ta wiadomość e-mail jest wysyłana na adres e-mail, który został zarejestrowany na naszej stronie. Aby potwierdzić adres email, kliknij w poniższy link.",
 	"apilogin.email.register.button": "Potwierdzam Email",
 
+	"apilogin.email.change.welcome": "Witaj",
+	"apilogin.email.change.subject": "👋 Zmiana adresu email.",
+	"apilogin.email.change.message": "Potwierdź zmianę adresu e-mail klikając w link. Musisz być zalogowany na koncie. Kod ważny jest 1 godzinę.",
+	"apilogin.email.change.button": "Zmień Email",
+
 	"apilogin.email.regards": "Pozdrawiamy",
 	"apilogin.email.regards_text": "Miłego dnia!",
 	"apilogin.email.rights": "Wszelkie Prawa Zastrzeżone.",
@@ -50,5 +55,12 @@
 	"apilogin.logout.success": "Wylogowany.",
 	"apilogin.logout.error": "Nie wylogowany.",
 
-	"apilogin.middleware.not.acceptable": "Not Acceptable."
+	"apilogin.middleware.not.acceptable": "Not Acceptable.",
+
+	"apilogin.email.change.success": "Wiadomość email z kodem została wysłana.",
+	"apilogin.email.change.error": "Coś poszło nie tak, proszę spróbuj później.",
+	"apilogin.email.change.email.error": "Nie można wysłać wiadomości e-maila z kodem, proszę spróbuj później.",
+
+	"apilogin.email.change.confirm.success": "Adres email został zmieniony. Odśwież stronę panelu.",
+	"apilogin.email.change.confirm.error": "Adres email nie został zmieniony."
 }

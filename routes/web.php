@@ -10,6 +10,8 @@ use Atomjoy\Apilogin\Http\Controllers\RegisterController;
 use Atomjoy\Apilogin\Http\Controllers\PasswordResetController;
 use Atomjoy\Apilogin\Http\Controllers\PasswordChangeController;
 use Atomjoy\Apilogin\Http\Controllers\PasswordConfirmController;
+use Atomjoy\Apilogin\Http\Controllers\EmailChangeController;
+use Atomjoy\Apilogin\Http\Controllers\EmailChangeConfirmController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->group(function () {
@@ -27,5 +29,7 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 	Route::middleware(['auth'])->group(function () {
 		Route::post('/password/confirm', [PasswordConfirmController::class, 'index'])->name('confirm');
 		Route::post('/password/change', [PasswordChangeController::class, 'index'])->name('change');
+		Route::post('/change/email', [EmailChangeController::class, 'index'])->name('change.email');
+		Route::get('/change/email/{id}/{code}', [EmailChangeConfirmController::class, 'index'])->name('change.email.confirm');
 	});
 });

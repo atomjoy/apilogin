@@ -2,36 +2,30 @@
 
 namespace Atomjoy\Apilogin\Http\Requests;
 
-use App\Models\User;
+use Exception;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\Rules\Password;
 
-class PasswordChangeRequest extends FormRequest
+class EmailChangeRequest extends FormRequest
 {
 	protected $stopOnFirstFailure = true;
 
 	public function authorize()
 	{
-		if (auth()->user() instanceof User) {
-			return true; // Allow logged
-		}
-
-		return false;
+		return Auth::check(); // Allow logged
 	}
 
 	public function rules()
 	{
+		$email = 'email:rfc,dns';
+		if (env('APP_DEBUG') == true) {
+			$email = 'email';
+		}
+
 		return [
-			'password_current' => 'required',
-			'password' => [
-				'required',
-				Password::min(11)->letters()->mixedCase()->numbers()->symbols(),
-				'confirmed',
-				'max:50',
-			],
-			'password_confirmation' => 'required',
+			'email' => ['required', $email, 'max:191']
 		];
 	}
 
@@ -45,7 +39,7 @@ class PasswordChangeRequest extends FormRequest
 	function prepareForValidation()
 	{
 		$this->merge(
-			collect(request()->json()->all())->only(['password_current', 'password', 'password_confirmation'])->toArray()
+			collect(request()->json()->all())->only(['email'])->toArray()
 		);
 	}
 
