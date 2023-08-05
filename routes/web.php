@@ -15,6 +15,7 @@ use Atomjoy\Apilogin\Http\Controllers\PasswordConfirmController;
 use Atomjoy\Apilogin\Http\Controllers\EmailChangeController;
 use Atomjoy\Apilogin\Http\Controllers\EmailChangeConfirmController;
 use Atomjoy\Apilogin\Http\Controllers\UploadAvatarController;
+use Atomjoy\Apilogin\Http\Controllers\AccountDeleteController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->group(function () {
@@ -39,5 +40,6 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 		// Resource
 		Route::singleton('address', AddressController::class, ['except' => ['edit']]);
 		Route::singleton('profile', ProfileController::class, ['except' => ['edit']]);
+		Route::singleton('account/delete', AccountDeleteController::class, ['except' => ['edit', 'show']]);
 	});
 });

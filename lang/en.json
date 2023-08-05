@@ -74,5 +74,8 @@
 	"apilogin.profil.error": "Profile has not been updated.",
 
 	"apilogin.address.success": "Address has been updated.",
-	"apilogin.address.error": "Address has not been updated."
+	"apilogin.address.error": "Address has not been updated.",
+
+	"apilogin.account.delete.success": "Account has been deleted.",
+	"apilogin.account.delete.error": "Ups! Account has not been deleted."
 }

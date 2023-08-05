@@ -74,5 +74,8 @@
 	"apilogin.profil.error": "Profil nie został zaktualizowany.",
 
 	"apilogin.address.success": "Adres został zaktualizowany.",
-	"apilogin.address.error": "Adres nie został zaktualizowany."
+	"apilogin.address.error": "Adres nie został zaktualizowany.",
+
+	"apilogin.account.delete.success": "Konto zostało usunięte.",
+	"apilogin.account.delete.error": "Ups! Konto nie zostało usunięte."
 }
