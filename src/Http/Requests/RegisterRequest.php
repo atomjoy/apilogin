@@ -9,6 +9,8 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
+use function PHPSTORM_META\map;
+
 class RegisterRequest extends FormRequest
 {
 	protected $stopOnFirstFailure = true;
@@ -26,7 +28,9 @@ class RegisterRequest extends FormRequest
 		}
 
 		return [
-			'name' => 'required|min:3|max:50',
+			'name' => [
+				'required', 'min:3', 'max:50'
+			],
 			'email' => [
 				'required', $email, 'max:191',
 				Rule::unique('users')

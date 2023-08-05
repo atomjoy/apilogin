@@ -3,6 +3,7 @@
 namespace Atomjoy\Apilogin;
 
 use Atomjoy\Apilogin\Http\Middleware\ApiloginMiddleware;
+use Atomjoy\Apilogin\Providers\AuthServiceProvider;
 use Atomjoy\Apilogin\Providers\EventServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Http\Kernel;
@@ -13,6 +14,7 @@ class ApiloginServiceProvider extends ServiceProvider
 	{
 		$this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'apilogin');
 		$this->app->register(EventServiceProvider::class);
+		// $this->app->register(AuthServiceProvider::class);
 	}
 
 	public function boot(Kernel $kernel)
@@ -20,8 +22,8 @@ class ApiloginServiceProvider extends ServiceProvider
 		$this->app['router']->aliasMiddleware('apilogin', ApiloginMiddleware::class);
 
 		$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-		// $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 		$this->loadViewsFrom(__DIR__ . '/../resources/views', 'apilogin');
+		$this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
 		if (config('apilogin.load_translations', true)) {
 			$this->loadTranslationsFrom(__DIR__ . '/../lang', 'apilogin');

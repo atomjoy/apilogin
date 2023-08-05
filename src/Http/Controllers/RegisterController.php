@@ -30,6 +30,13 @@ class RegisterController extends Controller
 				'remember_token' => $this->createPasswordToken(),
 			])->save();
 
+			$user->profile()->updateOrCreate([
+				'user_id' => $user->id
+			], [
+				'name' => $valid['name'],
+				'username' => uniqid('user.'),
+			]);
+
 			RegisterUser::dispatch($user);
 
 			return response()->json([
