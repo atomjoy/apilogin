@@ -37,6 +37,10 @@ class RegisterController extends Controller
 				'username' => uniqid('user.'),
 			]);
 
+			$user->address()->updateOrCreate([
+				'user_id' => $user->id
+			], []);
+
 			RegisterUser::dispatch($user);
 
 			return response()->json([
