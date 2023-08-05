@@ -1,5 +1,7 @@
 <?php
 
+use Atomjoy\Apilogin\Http\Controllers\AddressController;
+use Atomjoy\Apilogin\Http\Controllers\ProfileController;
 use Atomjoy\Apilogin\Http\Controllers\ActivateController;
 use Atomjoy\Apilogin\Http\Controllers\CsrfController;
 use Atomjoy\Apilogin\Http\Controllers\LocaleController;
@@ -12,6 +14,7 @@ use Atomjoy\Apilogin\Http\Controllers\PasswordChangeController;
 use Atomjoy\Apilogin\Http\Controllers\PasswordConfirmController;
 use Atomjoy\Apilogin\Http\Controllers\EmailChangeController;
 use Atomjoy\Apilogin\Http\Controllers\EmailChangeConfirmController;
+use Atomjoy\Apilogin\Http\Controllers\UploadAvatarController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->group(function () {
@@ -31,5 +34,9 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 		Route::post('/password/change', [PasswordChangeController::class, 'index'])->name('change');
 		Route::post('/change/email', [EmailChangeController::class, 'index'])->name('change.email');
 		Route::get('/change/email/{id}/{code}', [EmailChangeConfirmController::class, 'index'])->name('change.email.confirm');
+		Route::post('/upload/avatar', [UploadAvatarController::class, 'index'])->name('upload.avatar');
+		// Resource
+		Route::singleton('address', AddressController::class, ['except' => ['edit']]);
+		Route::singleton('profile', ProfileController::class, ['except' => ['edit']]);
 	});
 });

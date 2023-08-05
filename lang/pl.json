@@ -62,5 +62,14 @@
 	"apilogin.email.change.email.error": "Nie można wysłać wiadomości e-maila z kodem, proszę spróbuj później.",
 
 	"apilogin.email.change.confirm.success": "Adres email został zmieniony. Odśwież stronę panelu.",
-	"apilogin.email.change.confirm.error": "Adres email nie został zmieniony."
+	"apilogin.email.change.confirm.error": "Adres email nie został zmieniony.",
+
+	"apilogin.upload.avatar.success": "Avatar został zaktualizowany.",
+	"apilogin.upload.avatar.error": "Avatar nie został zaktualizowany.",
+
+	"apilogin.profil.success": "Profil został zaktualizowany.",
+	"apilogin.profil.error": "Profil nie został zaktualizowany.",
+
+	"apilogin.address.success": "Adres został zaktualizowany.",
+	"apilogin.address.error": "Adres nie został zaktualizowany."
 }

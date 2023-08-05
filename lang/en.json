@@ -62,5 +62,14 @@
 	"apilogin.email.change.email.error": "Unable to send email with code, please try to change your email later.",
 
 	"apilogin.email.change.confirm.success": "Email address has been updated. Refresh panel page.",
-	"apilogin.email.change.confirm.error": "Email address has not been updated."
+	"apilogin.email.change.confirm.error": "Email address has not been updated.",
+
+	"apilogin.upload.avatar.success": "Avatar has been uploaded.",
+	"apilogin.upload.avatar.error": "Avatar has not been uploaded.",
+
+	"apilogin.profil.success": "Profile has been updated.",
+	"apilogin.profil.error": "Profile has not been updated.",
+
+	"apilogin.address.success": "Address has been updated.",
+	"apilogin.address.error": "Address has not been updated."
 }

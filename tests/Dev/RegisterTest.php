@@ -25,7 +25,7 @@ class RegisterTest extends TestCase
 	{
 		Mail::fake();
 
-		$name = 'Alex';
+		$name = "Godluck O'Reilly PhD";
 		$email = uniqid() . '@gmail.com';
 
 		$response = $this->postJson('web/api/register', [
@@ -55,7 +55,7 @@ class RegisterTest extends TestCase
 		Mail::assertSent(RegisterMail::class, function ($mail) use ($email, $name) {
 			$mail->build();
 			$html = $mail->render();
-			$this->assertTrue(strpos($html, $name) !== false);
+			$this->assertTrue(strpos(html_entity_decode($html), $name) !== false);
 			$this->assertEquals("👋 Account activation.", $mail->subject, 'The subject was not the right one.');
 			$this->assertMatchesRegularExpression('/\/activate\/[0-9]+\/[a-z0-9]+\?locale=[a-z]{2}"/i', $html);
 			return $mail->hasTo($email);
@@ -69,7 +69,7 @@ class RegisterTest extends TestCase
 	{
 		Event::fake();
 
-		$name = 'Alex';
+		$name = "Godluck O'Reilly PhD";
 		$email = uniqid() . '@gmail.com';
 
 		$response = $this->postJson('web/api/register', [
@@ -120,7 +120,7 @@ class RegisterTest extends TestCase
 		Mail::assertSent(RegisterMail::class, function ($mail) use ($email, $name) {
 			$mail->build();
 			$html = $mail->render();
-			$this->assertTrue(strpos($html, $name) !== false);
+			$this->assertTrue(strpos(html_entity_decode($html), $name) !== false);
 			$this->assertEquals("👋 Account activation.", $mail->subject, 'The subject was not the right one.');
 			$this->assertMatchesRegularExpression('/\/activate\/[0-9]+\/[a-z0-9]+\?locale=[a-z]{2}"/i', $html);
 			return $mail->hasTo($email);
@@ -144,7 +144,7 @@ class RegisterTest extends TestCase
 		// Mail event
 		Event::assertDispatched(MessageSent::class, function ($e) use ($email, $name) {
 			$html = $e->message->getHtmlBody();
-			$this->assertStringContainsString($name, $html);
+			$this->assertStringContainsString($name, html_entity_decode($html));
 			$this->assertMatchesRegularExpression('/\/activate\/[0-9]+\/[a-z0-9]+\?locale=[a-z]{2}"/i', $html);
 			return collect($e->message->getTo())->first()->getAddress() == $email;
 			// Password test
@@ -157,7 +157,7 @@ class RegisterTest extends TestCase
 
 	function getPassword($html)
 	{
-		preg_match('/word>[a-zA-Z0-9#]+<\/pass/', $html, $matches, PREG_OFFSET_CAPTURE);
+		preg_match('/word>[a-zA-Z0-9#]+<\/pass/', html_entity_decode($html), $matches, PREG_OFFSET_CAPTURE);
 		return str_replace(['word>', '</pass'], '', end($matches)[0]);
 	}
 

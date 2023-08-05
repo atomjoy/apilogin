@@ -19,4 +19,16 @@ return [
 
 	// Force json accept header middleware
 	// 'enable_accept_json' => true,
+
+	// Max avatar size (default 5)
+	// 'max_upload_size_mb' => 10
+
+	// Avatar min size (default 64)
+	// 'avatar_min_pixels' => 128,
+
+	// Avatar max size (default 1025)
+	// 'avatar_max_pixels' => 512,
+
+	// Force factories for Address, Profile model from app/database/factories
+	// force_user_factory = true
 ];

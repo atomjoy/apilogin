@@ -10,6 +10,33 @@ php artisan migrate
 
 # Refresh tables
 php artisan migrate:fresh
+
+# Run seeders (optional)
+php artisan db:seed --class=ApiloginSeeder
+```
+
+### Add in User model
+
+Add profil, address, relations (required).
+
+```php
+<?php
+
+namespace App\Models;
+
+use Atomjoy\Apilogin\Contracts\HasProfilAddress;
+
+class User extends Authenticatable
+{
+    use HasApiTokens, HasFactory, Notifiable, HasProfilAddress;
+
+    /**
+    * Append user relations (optional).
+    */
+    protected $with = ['profile', 'address'];
+
+    // ...
+}
 ```
 
 ### Activation page
@@ -64,10 +91,10 @@ Chenge or comment the fallback route while testing!
 <?php
 // Disable in testing
 if (!app()->runningUnitTests()) {
-	// Vue catch all
-	Route::fallback(function () {
-		return view('vue');
-	});
+ // Vue catch all
+ Route::fallback(function () {
+  return view('vue');
+ });
 }
 ```
 
