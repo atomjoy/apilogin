@@ -75,7 +75,6 @@ class UploadAvatarController extends Controller
 			], 200);
 		} catch (Exception $e) {
 			report($e);
-			dd($e->getMessage());
 			throw new JsonException(__('apilogin.remove.avatar.error'), 422);
 		}
 	}
