@@ -17,7 +17,9 @@ class LoggedController extends Controller
 
 			return response()->json([
 				'message' => __('apilogin.logged.authenticated'),
-				'user' => Auth::user()
+				'user' => Auth::user()->fresh([
+					'profile', 'address'
+				]),
 			], 200);
 		} else {
 			LoggedUserError::dispatch();
