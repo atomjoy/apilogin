@@ -35,6 +35,7 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 		Route::post('/change/email', [EmailChangeController::class, 'index'])->name('change.email');
 		Route::get('/change/email/{id}/{code}', [EmailChangeConfirmController::class, 'index'])->name('change.email.confirm');
 		Route::post('/upload/avatar', [UploadAvatarController::class, 'index'])->name('upload.avatar');
+		Route::post('/remove/avatar', [UploadAvatarController::class, 'remove'])->name('remove.avatar');
 		// Resource
 		Route::singleton('address', AddressController::class, ['except' => ['edit']]);
 		Route::singleton('profile', ProfileController::class, ['except' => ['edit']]);

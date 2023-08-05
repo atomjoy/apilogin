@@ -67,6 +67,9 @@
 	"apilogin.upload.avatar.success": "Avatar has been uploaded.",
 	"apilogin.upload.avatar.error": "Avatar has not been uploaded.",
 
+	"apilogin.remove.avatar.success": "Avatar has been removed.",
+	"apilogin.remove.avatar.error": "Avatar has not been removed.",
+
 	"apilogin.profil.success": "Profile has been updated.",
 	"apilogin.profil.error": "Profile has not been updated.",
 
