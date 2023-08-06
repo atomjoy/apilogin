@@ -89,12 +89,17 @@ Chenge or comment the fallback route while testing!
 
 ```php
 <?php
+// Add login route
+Route::get('/login', function () {
+  return view('vue');
+})->name('login');
+
 // Disable in testing
 if (!app()->runningUnitTests()) {
- // Vue catch all
- Route::fallback(function () {
-  return view('vue');
- });
+  // Vue catch all
+  Route::fallback(function () {
+    return view('vue');
+  });
 }
 ```
 

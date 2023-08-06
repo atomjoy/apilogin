@@ -35,11 +35,14 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 		Route::post('/password/change', [PasswordChangeController::class, 'index'])->name('change');
 		Route::post('/change/email', [EmailChangeController::class, 'index'])->name('change.email');
 		Route::get('/change/email/{id}/{code}', [EmailChangeConfirmController::class, 'index'])->name('change.email.confirm');
-		Route::post('/upload/avatar', [UploadAvatarController::class, 'index'])->name('upload.avatar');
-		Route::post('/remove/avatar', [UploadAvatarController::class, 'remove'])->name('remove.avatar');
 		// Resource
 		Route::singleton('address', AddressController::class, ['except' => ['edit']]);
 		Route::singleton('profile', ProfileController::class, ['except' => ['edit']]);
 		Route::singleton('account/delete', AccountDeleteController::class, ['except' => ['edit', 'show']]);
+		// Avatar
+		Route::post('/upload/avatar', [UploadAvatarController::class, 'index'])->name('upload.avatar');
+		Route::post('/remove/avatar', [UploadAvatarController::class, 'remove'])->name('remove.avatar');
+		// Show image
+		Route::get('/show/avatar', [UploadAvatarController::class, 'show'])->name('show.avatar')->withoutMiddleware('apilogin');
 	});
 });

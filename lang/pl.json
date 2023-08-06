@@ -66,6 +66,7 @@
 
 	"apilogin.upload.avatar.success": "Avatar został zaktualizowany.",
 	"apilogin.upload.avatar.error": "Avatar nie został zaktualizowany.",
+	"apilogin.show.avatar.error": "Błąd avatara.",
 
 	"apilogin.remove.avatar.success": "Avatar został usunięty.",
 	"apilogin.remove.avatar.error": "Avatar nie został usunięty.",

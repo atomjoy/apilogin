@@ -12,6 +12,7 @@ use Atomjoy\Apilogin\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Response;
 
 class UploadAvatarController extends Controller
 {
@@ -76,6 +77,61 @@ class UploadAvatarController extends Controller
 		} catch (Exception $e) {
 			report($e);
 			throw new JsonException(__('apilogin.remove.avatar.error'), 422);
+		}
+	}
+
+
+	public function show()
+	{
+		return $this->showAvatar();
+	}
+
+	/**
+	 *	Show avatar only for logged in users.
+	 */
+	public function showAvatar($default_avatar = 'js/components/input/profil/avatar.png')
+	{
+		try {
+			$id = Auth::id() ?? 'error';
+
+			$filename = '/avatars/' . $id . '.webp';
+
+			$exists = Storage::disk('public')->exists($filename);
+
+			if ($exists) {
+				$mime = Storage::disk('public')->mimeType($filename);
+
+				$content = Storage::disk('public')->get($filename);
+
+				$response = Response::make($content, 200);
+
+				$response->header("Content-Type", $mime);
+
+				return $response;
+			} else {
+				$default = resource_path($default_avatar);
+
+				if (!file_exists($default)) {
+					$default = fake()->image(
+						null,
+						128,
+						128,
+						null,
+						true,
+						true,
+						'avatar',
+						true,
+						'png'
+					);
+				}
+
+				return response(
+					file_get_contents($default)
+				)->header('Content-Type', 'image/png');
+			}
+		} catch (Exception $e) {
+			report($e);
+			throw new JsonException(__('apilogin.show.avatar.error'), 422);
 		}
 	}
 }
