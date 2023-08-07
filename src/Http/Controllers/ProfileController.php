@@ -46,13 +46,13 @@ class ProfileController extends Controller
 			ProfileUser::dispatch($user);
 
 			return response()->json([
-				'message' => __("apilogin.profil.success"),
+				'message' => __("apilogin.profile.success"),
 				'profile' => $user->fresh(['profile'])->profile
 			], 200);
 		} catch (Exception $e) {
 			report($e);
 			ProfileUserError::dispatch($valid);
-			throw new JsonException(__("apilogin.profil.error"), 422);
+			throw new JsonException(__("apilogin.profile.error"), 422);
 		}
 	}
 }

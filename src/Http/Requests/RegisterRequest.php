@@ -9,8 +9,6 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-use function PHPSTORM_META\map;
-
 class RegisterRequest extends FormRequest
 {
 	protected $stopOnFirstFailure = true;

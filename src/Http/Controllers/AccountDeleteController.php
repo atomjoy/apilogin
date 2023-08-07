@@ -2,7 +2,6 @@
 
 namespace Atomjoy\Apilogin\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use Atomjoy\Apilogin\Events\AccountDelete;
 use Atomjoy\Apilogin\Events\AccountDeleteError;

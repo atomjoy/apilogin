@@ -2,6 +2,7 @@
 
 namespace Atomjoy\Apilogin\Http\Requests;
 
+use Exception;
 use App\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;

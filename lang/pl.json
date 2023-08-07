@@ -71,8 +71,8 @@
 	"apilogin.remove.avatar.success": "Avatar został usunięty.",
 	"apilogin.remove.avatar.error": "Avatar nie został usunięty.",
 
-	"apilogin.profil.success": "Profil został zaktualizowany.",
-	"apilogin.profil.error": "Profil nie został zaktualizowany.",
+	"apilogin.profile.success": "Profil został zaktualizowany.",
+	"apilogin.profile.error": "Profil nie został zaktualizowany.",
 
 	"apilogin.address.success": "Adres został zaktualizowany.",
 	"apilogin.address.error": "Adres nie został zaktualizowany.",

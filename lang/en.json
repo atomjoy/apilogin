@@ -71,8 +71,8 @@
 	"apilogin.remove.avatar.success": "Avatar has been removed.",
 	"apilogin.remove.avatar.error": "Avatar has not been removed.",
 
-	"apilogin.profil.success": "Profile has been updated.",
-	"apilogin.profil.error": "Profile has not been updated.",
+	"apilogin.profile.success": "Profile has been updated.",
+	"apilogin.profile.error": "Profile has not been updated.",
 
 	"apilogin.address.success": "Address has been updated.",
 	"apilogin.address.error": "Address has not been updated.",

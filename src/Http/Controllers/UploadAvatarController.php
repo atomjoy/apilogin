@@ -3,7 +3,6 @@
 namespace Atomjoy\Apilogin\Http\Controllers;
 
 use Exception;
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use Atomjoy\Apilogin\Events\UploadAvatar;
 use Atomjoy\Apilogin\Exceptions\JsonException;
