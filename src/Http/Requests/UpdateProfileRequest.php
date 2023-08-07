@@ -6,6 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -31,7 +32,8 @@ class UpdateProfileRequest extends FormRequest
 				'min:6',
 				'max:30',
 				'regex:/^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,20}[a-zA-Z0-9]$/',
-				'unique:profiles,username,' . Auth::id(),
+				'unique:profiles,username,' . Auth::user()->profile->id,
+				// Rule::unique('profiles')->ignore(Auth::user()->profile->id),
 			],
 			'name' => [
 				'required', 'min:3', 'max:50',
