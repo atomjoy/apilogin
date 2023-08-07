@@ -18,18 +18,43 @@ class UserProfileTest extends TestCase
 
 		$this->actingAs($user);
 
+		// Create
 		$response = $this->patchJson(
 			'/web/api/profile',
 			Profile::factory()->make([
-				'name' => "Czereśnia O'Reilly"
+				'name' => "Czereśnia O'Reilly",
+				'username' => 'user123456',
 			])->toArray()
 		);
 
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Profile has been updated.',
-			'profile' => ['name' => "Czereśnia O'Reilly"]
+			'profile' => [
+				'name' => "Czereśnia O'Reilly",
+				'username' => 'user123456',
+			]
 		]);
 
+		// Update
+		$response = $this->patchJson(
+			'/web/api/profile',
+			Profile::factory()->make([
+				'name' => "Czereśnia O'Reilly",
+				'username' => 'user.123456',
+				'location' => 'Polska',
+			])->toArray()
+		);
+
+		$response->assertStatus(200)->assertJson([
+			'message' => 'Profile has been updated.',
+			'profile' => [
+				'name' => "Czereśnia O'Reilly",
+				'username' => 'user.123456',
+				'location' => 'Polska',
+			]
+		]);
+
+		// Show
 		$response = $this->getJson('/web/api/profile');
 
 		$response->assertStatus(200)->assertJson([
