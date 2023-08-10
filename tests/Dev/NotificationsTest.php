@@ -50,6 +50,17 @@ class NotificationsTest extends TestCase
 			'read_at' => NULL,
 		]);
 
+		$res = $this->getJson('/web/api/notifications/toggle/' . $id1);
+
+		$res->assertStatus(200)->assertJson([
+			'message' => 'Updated.'
+		]);
+
+		$this->assertDatabaseHas('notifications', [
+			'id' => $id1,
+			'read_at' => NULL,
+		]);
+
 		$res = $this->getJson('/web/api/notifications/readall');
 
 		$res->assertStatus(200)->assertJson([

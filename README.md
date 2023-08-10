@@ -130,6 +130,8 @@ php artisan test --stop-on-failure --testsuite=Apilogin
 
 ## Notifications exmple
 
+Run first: php artisan notifications:table
+
 ```php
 <?php
 
