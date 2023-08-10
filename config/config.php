@@ -21,7 +21,7 @@ return [
 	// 'enable_accept_json' => true,
 
 	// Max avatar size (default 5)
-	// 'max_upload_size_mb' => 10
+	// 'max_upload_size_mb' => 10,
 
 	// Avatar min size (default 64)
 	// 'avatar_min_pixels' => 128,
@@ -30,5 +30,8 @@ return [
 	// 'avatar_max_pixels' => 512,
 
 	// Force factories for Address, Profile model from app/database/factories
-	// force_user_factory = true
+	// 'force_user_factory' = true,
+
+	// Notifications perpage (default 6)
+	// 'apilogin.notifications_perpage' => 15,
 ];
