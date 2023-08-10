@@ -5,8 +5,9 @@ Install with composer and update.
 ## Databases
 
 ```sh
-# notifications
+# notifications, storage
 php artisan notifications:table
+php artisan storage:link
 
 # Create tables
 php artisan migrate
