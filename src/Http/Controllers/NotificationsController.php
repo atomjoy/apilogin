@@ -21,7 +21,9 @@ class NotificationsController extends Controller
 			$list = Auth::user()->notifications()
 				->latest()
 				->offset($offset)
-				->limit($perpage)->get();
+				->limit($perpage)->get()->each(function ($n) {
+					$n->formatted_created_at = $n->created_at->format('Y-m-d H:i:s');
+				});
 
 			$unread = Auth::user()->unreadNotifications()->count();
 
