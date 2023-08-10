@@ -43,6 +43,7 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 		// Notifications
 		Route::get('/notifications/page/{page}', [NotificationsController::class, 'index'])->name('notifications.page');
 		Route::get('/notifications/toggle/{id}', [NotificationsController::class, 'toggle'])->name('notifications.toggle');
+		Route::get('/notifications/delete/{id}', [NotificationsController::class, 'delete'])->name('notifications.delete');
 		Route::get('/notifications/readall', [NotificationsController::class, 'readall'])->name('notifications.readall');
 		// Avatar
 		Route::post('/upload/avatar', [UploadAvatarController::class, 'index'])->name('upload.avatar');

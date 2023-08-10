@@ -28,10 +28,12 @@ class NotificationsTest extends TestCase
 
 		$this->actingAs($user);
 
+		// Get notifications page
 		$res = $this->getJson('/web/api/notifications/page/1');
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Notifications.'
+			'message' => 'Notifications.',
+			'unread' => 2,
 		]);
 
 		$this->assertTrue(count($res['notifications']) == 2);
@@ -39,6 +41,7 @@ class NotificationsTest extends TestCase
 		$id1 = $res['notifications'][0]['id'];
 		$id2 = $res['notifications'][1]['id'];
 
+		// Toggle
 		$res = $this->getJson('/web/api/notifications/toggle/' . $id1);
 
 		$res->assertStatus(200)->assertJson([
@@ -50,6 +53,7 @@ class NotificationsTest extends TestCase
 			'read_at' => NULL,
 		]);
 
+		// Toggle
 		$res = $this->getJson('/web/api/notifications/toggle/' . $id1);
 
 		$res->assertStatus(200)->assertJson([
@@ -61,6 +65,7 @@ class NotificationsTest extends TestCase
 			'read_at' => NULL,
 		]);
 
+		// Mark all
 		$res = $this->getJson('/web/api/notifications/readall');
 
 		$res->assertStatus(200)->assertJson([
@@ -71,5 +76,29 @@ class NotificationsTest extends TestCase
 			'id' => $id2,
 			'read_at' => NULL,
 		]);
+
+		// Delete
+		$this->assertDatabaseHas('notifications', [
+			'id' => $id2
+		]);
+
+		$res = $this->getJson('/web/api/notifications/delete/' . $id2);
+
+		$res->assertStatus(200)->assertJson([
+			'message' => 'Updated.'
+		]);
+
+		$this->assertDatabaseMissing('notifications', [
+			'id' => $id2
+		]);
+
+		// Get notifications page
+		$res = $this->getJson('/web/api/notifications/page/1');
+
+		$res->assertStatus(200)->assertJson([
+			'message' => 'Notifications.'
+		]);
+
+		$this->assertTrue(count($res['notifications']) == 1);
 	}
 }

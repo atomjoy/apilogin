@@ -72,4 +72,22 @@ class NotificationsController extends Controller
 			throw new JsonException(__('apilogin.notifications.error'), 422);
 		}
 	}
+
+	function delete($id)
+	{
+		try {
+			$item = Auth::user()->notifications()->find($id);
+
+			if ($item != null) {
+				$item->delete();
+			}
+
+			return response()->json([
+				'message' => __('apilogin.notifications.success')
+			]);
+		} catch (Exception $e) {
+			report($e);
+			throw new JsonException(__('apilogin.notifications.error'), 422);
+		}
+	}
 }
