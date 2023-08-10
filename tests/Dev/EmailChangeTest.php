@@ -5,6 +5,7 @@ namespace Tests\Dev;
 use App\Models\User;
 use Atomjoy\Apilogin\Mail\ChangeMail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
@@ -13,7 +14,7 @@ use Tests\TestCase;
 
 class EmailChangeTest extends TestCase
 {
-	use RefreshDatabase;
+	use RefreshDatabase, WithFaker;
 
 	public function test_email_change_not_logged(): void
 	{
@@ -58,19 +59,21 @@ class EmailChangeTest extends TestCase
 
 		$this->actingAs($user);
 
+		$new_email = 'new_' . $email;
+
 		$response = $this->postJson('web/api/change/email', [
-			'email' => $email,
+			'email' => $new_email,
 		]);
-
-		$cache = Cache::get('emailchange_' . md5($user->id));
-		$needle = $user->id . '|' . $email . '|';
-
-		$this->assertNotEmpty($cache);
-		$this->assertStringContainsString($needle, $cache);
 
 		$response->assertStatus(200)->assertJson([
 			'message' => 'The e-mail with the code has been sent.',
 		]);
+
+		$cache = Cache::get('emailchange_' . md5($user->id));
+		$needle = $user->id . '|' . $new_email . '|';
+
+		$this->assertNotEmpty($cache);
+		$this->assertStringContainsString($needle, $cache);
 
 		Mail::assertSent(ChangeMail::class, function ($mail) use ($email, $name) {
 			$mail->build();
@@ -111,12 +114,22 @@ class EmailChangeTest extends TestCase
 			'email' => $email,
 		]);
 
+		$response->assertStatus(422)->assertJson([
+			'message' => 'It is your current email address.',
+		]);
+
+		$new_email = 'new_' . $email;
+
+		$response = $this->postJson('web/api/change/email', [
+			'email' => $new_email,
+		]);
+
 		$response->assertStatus(200)->assertJson([
 			'message' => 'The e-mail with the code has been sent.',
 		]);
 
 		$cache = Cache::get('emailchange_' . md5($user->id));
-		$needle = $user->id . '|' . $email . '|';
+		$needle = $user->id . '|' . $new_email . '|';
 
 		$this->assertNotEmpty($cache);
 		$this->assertStringContainsString($needle, $cache);

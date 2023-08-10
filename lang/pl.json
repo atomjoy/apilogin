@@ -12,6 +12,7 @@
 	"apilogin.email.change.subject": "👋 Zmiana adresu email.",
 	"apilogin.email.change.message": "Potwierdź zmianę adresu e-mail klikając w link. Musisz być zalogowany na koncie. Kod ważny jest 1 godzinę.",
 	"apilogin.email.change.button": "Zmień Email",
+	"apilogin.email.change.current": "Podałeś aktualny adres email.",
 
 	"apilogin.email.regards": "Pozdrawiamy",
 	"apilogin.email.regards_text": "Miłego dnia!",
@@ -78,5 +79,9 @@
 	"apilogin.address.error": "Adres nie został zaktualizowany.",
 
 	"apilogin.account.delete.success": "Konto zostało usunięte.",
-	"apilogin.account.delete.error": "Ups! Konto nie zostało usunięte."
+	"apilogin.account.delete.error": "Ups! Konto nie zostało usunięte.",
+
+	"apilogin.notifications.success": "Zaktualizowano.",
+	"apilogin.notifications.error": "Błędne dane.",
+	"apilogin.notifications.unauthenticated": "Nie zalogowany."
 }

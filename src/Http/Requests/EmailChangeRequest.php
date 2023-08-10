@@ -25,7 +25,7 @@ class EmailChangeRequest extends FormRequest
 		}
 
 		return [
-			'email' => ['required', $email, 'max:191', 'unique:users']
+			'email' => ['required', $email, 'max:191', 'unique:users,email,' . Auth::id()]
 		];
 	}
 

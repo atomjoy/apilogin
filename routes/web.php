@@ -16,6 +16,7 @@ use Atomjoy\Apilogin\Http\Controllers\EmailChangeController;
 use Atomjoy\Apilogin\Http\Controllers\EmailChangeConfirmController;
 use Atomjoy\Apilogin\Http\Controllers\UploadAvatarController;
 use Atomjoy\Apilogin\Http\Controllers\AccountDeleteController;
+use Atomjoy\Apilogin\Http\Controllers\NotificationsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->group(function () {
@@ -39,6 +40,10 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 		Route::singleton('address', AddressController::class, ['except' => ['edit']]);
 		Route::singleton('profile', ProfileController::class, ['except' => ['edit']]);
 		Route::singleton('account/delete', AccountDeleteController::class, ['except' => ['edit', 'show']]);
+		// Notifications
+		Route::get('/notifications/page/{page}', [NotificationsController::class, 'index'])->name('notifications.page');
+		Route::get('/notifications/toggle/{id}', [NotificationsController::class, 'toggle'])->name('notifications.toggle');
+		Route::get('/notifications/readall', [NotificationsController::class, 'readall'])->name('notifications.readall');
 		// Avatar
 		Route::post('/upload/avatar', [UploadAvatarController::class, 'index'])->name('upload.avatar');
 		Route::post('/remove/avatar', [UploadAvatarController::class, 'remove'])->name('remove.avatar');

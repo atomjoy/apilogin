@@ -17,7 +17,7 @@ php artisan db:seed --class=ApiloginSeeder
 
 ### Add in User model
 
-Add profil, address, relations (required).
+Add profil, address, notifications relations (required).
 
 ```php
 <?php
@@ -123,4 +123,30 @@ php artisan test --stop-on-failure --testsuite=Apilogin
   "atomjoy/apilogin": "dev-main",
  }
 }
+```
+
+## Notifications exmple
+
+```php
+<?php
+
+use App\Models\User;
+use Atomjoy\Apilogin\Notifications\Contracts\NotifyMessage;
+use Atomjoy\Apilogin\Notifications\DbNotify;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+  $msg = new NotifyMessage();
+  $msg->setContent('Hello max your LINK_SIGNUP and LINK_SIGNIN link (Register LINK_SIGNUP).');
+  $msg->setLink('LINK_SIGNUP', 'https://example.com/signup', 'Sign Up');
+  $msg->setLink('LINK_SIGNIN', 'https://example.com/signin', 'Sign In');
+
+  $user = User::first();
+  $user->notify(new DbNotify($msg));
+  $user->notifyNow(new DbNotify($msg));
+
+  return $user->notifications()->offset(0)->limit(15)->get()->each(function ($n) {
+    $n->formatted_created_at = $n->created_at->format('Y-m-d H:i:s');
+  });
+});
 ```

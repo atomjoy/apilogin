@@ -20,6 +20,10 @@ class EmailChangeController extends Controller
 		$code = md5(uniqid() . microtime());
 		$user = null;
 
+		if (Auth::user()->email == $valid['email']) {
+			throw new JsonException(__("apilogin.email.change.current"), 422);
+		}
+
 		try {
 			$request->testDatabase();
 

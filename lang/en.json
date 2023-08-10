@@ -12,6 +12,7 @@
 	"apilogin.email.change.subject": "👋 Account e-mail change.",
 	"apilogin.email.change.message": "Confirm the change of e-mail address by clicking on the link. You must be logged in to your account. The code is valid for 1 hour.",
 	"apilogin.email.change.button": "Change Email",
+	"apilogin.email.change.current": "It is your current email address.",
 
 	"apilogin.email.regards": "Regards",
 	"apilogin.email.regards_text": "Have a nice day!",
@@ -78,5 +79,9 @@
 	"apilogin.address.error": "Address has not been updated.",
 
 	"apilogin.account.delete.success": "Account has been deleted.",
-	"apilogin.account.delete.error": "Ups! Account has not been deleted."
+	"apilogin.account.delete.error": "Ups! Account has not been deleted.",
+
+	"apilogin.notifications.success": "Updated.",
+	"apilogin.notifications.error": "Invalid data.",
+	"apilogin.notifications.unauthenticated": "Unauthenticated."
 }
