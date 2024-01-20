@@ -17,6 +17,7 @@ use Atomjoy\Apilogin\Http\Controllers\EmailChangeConfirmController;
 use Atomjoy\Apilogin\Http\Controllers\UploadAvatarController;
 use Atomjoy\Apilogin\Http\Controllers\AccountDeleteController;
 use Atomjoy\Apilogin\Http\Controllers\NotificationsController;
+use Atomjoy\Apilogin\Http\Controllers\F2aController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->group(function () {
@@ -29,9 +30,14 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 	Route::get('/logged', [LoggedController::class, 'index'])->name('logged');
 	Route::get('/csrf', [CsrfController::class, 'index'])->name('csrf');
 	Route::get('/locale/{locale}', [LocaleController::class, 'index'])->name('locale');
+	Route::post('/f2a', [F2aController::class, 'index'])->name('f2a');
 
 	// Private routes
 	Route::middleware(['auth'])->group(function () {
+		// 2FA auth on/off
+		Route::get('/f2a/enable', [F2aController::class, 'enable'])->name('f2a.enable');
+		Route::get('/f2a/disable', [F2aController::class, 'disable'])->name('f2a.disable');
+		// Account
 		Route::post('/password/confirm', [PasswordConfirmController::class, 'index'])->name('confirm');
 		Route::post('/password/change', [PasswordChangeController::class, 'index'])->name('change');
 		Route::post('/change/email', [EmailChangeController::class, 'index'])->name('change.email');

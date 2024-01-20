@@ -1,4 +1,6 @@
 {
+	"apilogin.updated": "Updated.",
+
 	"apilogin.email.password.welcome": "Welcome",
 	"apilogin.email.password.subject": "👋 Your new password.",
 	"apilogin.email.password.message": "This is your new password.",
@@ -16,7 +18,11 @@
 
 	"apilogin.email.regards": "Regards",
 	"apilogin.email.regards_text": "Have a nice day!",
-	"apilogin.email.rights": "All Rights resetved.",
+	"apilogin.email.rights": "All Rights reserved.",
+
+	"apilogin.email.f2a.welcome": "Welcome",
+	"apilogin.email.f2a.subject": "Authentication code.",
+	"apilogin.email.f2a.message": "This is your code.",
 
 	"apilogin.logged.authenticated": "Authenticated.",
 	"apilogin.logged.unauthenticated": "Unauthenticated.",
@@ -29,6 +35,10 @@
 	"apilogin.login.throttle": "Too many login attempts. Please try again in :seconds seconds.",
 	"apilogin.login.unverified": "Your email address is not verified.",
 	"apilogin.login.authenticated": "Authenticated.",
+	"apilogin.login.unauthenticated": "Unauthenticated.",
+	"apilogin.login.f2a_limit": "Too many tries. Login again.",
+	"apilogin.login.f2a_error": "Invalid confirmation code.",
+	"apilogin.login.f2a_email_error": "Email has not been sent. Try again later.",
 
 	"apilogin.reset.password.invalid": "An account with this email address does not exist.",
 	"apilogin.reset.password.success": "A new password has been sent to the e-mail address provided.",

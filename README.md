@@ -87,6 +87,16 @@ Copy testsuite Apilogin from phpunit.xml
 </testsuite>
 ```
 
+### Mysql user and db
+
+```sql
+CREATE DATABASE IF NOT EXISTS laravel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS laravel_testing CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+GRANT ALL PRIVILEGES ON *.* TO root@localhost IDENTIFIED BY 'toor' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO root@127.0.0.1 IDENTIFIED BY 'toor' WITH GRANT OPTION;
+```
+
 ### Comment fallback route
 
 Chenge or comment the fallback route while testing!
@@ -105,6 +115,14 @@ if (!app()->runningUnitTests()) {
     return view('vue');
   });
 }
+```
+
+### 2FA auth
+
+Two factor auth redirection url (vue).
+
+```sh
+/login/f2a/{hash}
 ```
 
 ### Run tests

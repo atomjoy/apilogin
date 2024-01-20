@@ -1,4 +1,6 @@
 {
+	"apilogin.updated": "Zaktualizowano.",
+
 	"apilogin.email.password.welcome": "Witaj",
 	"apilogin.email.password.subject": "👋 Twoje nowe hasło.",
 	"apilogin.email.password.message": "Poniżej znajdziesz swoje nowe hasło.",
@@ -18,6 +20,10 @@
 	"apilogin.email.regards_text": "Miłego dnia!",
 	"apilogin.email.rights": "Wszelkie Prawa Zastrzeżone.",
 
+	"apilogin.email.f2a.welcome": "Witaj",
+	"apilogin.email.f2a.subject": "Kod aktywacyjny.",
+	"apilogin.email.f2a.message": "Poniżej znajdziesz swój kod.",
+
 	"apilogin.logged.authenticated": "Zalogowany.",
 	"apilogin.logged.unauthenticated": "Nie zalogowany.",
 
@@ -29,6 +35,10 @@
 	"apilogin.login.throttle": "Zbyt wiele prób logowania. Spróbuj ponownie za :seconds sekund.",
 	"apilogin.login.unverified": "Twój adres e-mail nie został zweryfikowany.",
 	"apilogin.login.authenticated": "Zalogowany.",
+	"apilogin.login.unauthenticated": "Nie zalogowany.",
+	"apilogin.login.f2a_limit": "Za dużo prób. Zaloguj się ponownie.",
+	"apilogin.login.f2a_error": "Podano niepoprawny kod.",
+	"apilogin.login.f2a_email_error": "Wiadomość nie została wysłana. Spróbuj poźniej.",
 
 	"apilogin.reset.password.invalid": "Konto z takim adresem email nie istnieje.",
 	"apilogin.reset.password.success": "Nowe hasło zostało wysłane na podany adres email.",

@@ -2,8 +2,8 @@
 
 namespace Atomjoy\Apilogin\Http\Requests;
 
-use Atomjoy\Apilogin\Events\LoginUserError;
 use Atomjoy\Apilogin\Exceptions\JsonException;
+use Atomjoy\Apilogin\Models\F2acode;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,11 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use Atomjoy\Apilogin\Mail\F2aMail;
-use Atomjoy\Apilogin\Models\F2acode;
-use Illuminate\Support\Facades\Mail;
 
-class LoginRequest extends FormRequest
+class F2aRequest extends FormRequest
 {
 	protected $stopOnFirstFailure = true;
 
@@ -26,14 +23,9 @@ class LoginRequest extends FormRequest
 
 	public function rules()
 	{
-		$email = 'email:rfc,dns';
-		if (env('APP_DEBUG') == true) {
-			$email = 'email';
-		}
-
 		return [
-			'email' => ['required', $email, 'max:191'],
-			'password' => 'required|min:11|max:50',
+			'hash' => 'required|min:6|max:64',
+			'code' => 'required|min:3|max:32',
 			'remember_me' => 'sometimes|boolean'
 		];
 	}
@@ -48,7 +40,7 @@ class LoginRequest extends FormRequest
 	function prepareForValidation()
 	{
 		$this->merge(
-			collect(request()->json()->all())->only(['email', 'password', 'remember_me'])->toArray()
+			collect(request()->json()->all())->only(['hash', 'code', 'remember_me'])->toArray()
 		);
 	}
 
@@ -61,60 +53,31 @@ class LoginRequest extends FormRequest
 	{
 		$this->ensureIsNotRateLimited();
 
-		if (!Auth::attempt($this->only('email', 'password'), $this->boolean('remember_me'))) {
+		if (!Auth::check()) {
 			RateLimiter::hit(
 				$this->throttleKey(),
 				config('apilogin.ratelimit_login_time', 300)
 			);
 
-			LoginUserError::dispatch($this->only('email'));
+			$f2a = F2acode::where($this->only('hash', 'code'))
+				->whereTime(
+					'created_at',
+					'>=',
+					now()->subMinutes(5)->toDateTimeString()
+				)->first();
 
-			throw new JsonException(__('apilogin.login.failed'), 422);
-		}
+			if ($f2a instanceof F2acode) {
+				Auth::login($f2a->user, $this->boolean('remember_me'));
 
-		if (empty(Auth::user()->email_verified_at)) {
-			throw new JsonException(__('apilogin.login.unverified'), 422);
+				if (Auth::check()) {
+					$f2a->delete();
+				}
+			} else {
+				throw new JsonException(__('apilogin.login.f2a_error'), 422);
+			}
 		}
 
 		RateLimiter::clear($this->throttleKey());
-	}
-
-	/**
-	 * 2FA Authentication
-	 */
-	public function f2a()
-	{
-		$hash = Str::uuid();
-		$code = random_int(123123, 999999);
-
-		if (Auth::user()->f2a == 1) {
-			$user = Auth::user();
-
-			if (app()->runningUnitTests()) {
-				$hash = 'test-hash-f2a-123';
-				$code = 888777;
-			}
-
-			try {
-				Mail::to($user)
-					->locale(app()->getLocale())
-					->send(new F2aMail($user, $code));
-			} catch (Exception $e) {
-				report($e);
-				Auth::logout();
-				throw new JsonException(__("apilogin.login.f2a_email_error"), 422);
-			}
-
-			F2acode::create([
-				'user_id' => Auth::id(),
-				'code' => $code,
-				'hash' => $hash
-			]);
-
-			Auth::logout();
-
-			return $hash;
-		}
 	}
 
 	public function ensureIsNotRateLimited(): void
@@ -139,6 +102,6 @@ class LoginRequest extends FormRequest
 
 	public function throttleKey(): string
 	{
-		return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
+		return Str::transliterate(Str::lower($this->input('hash')));
 	}
 }

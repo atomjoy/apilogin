@@ -1,10 +1,15 @@
 <?php
 
 return [
+	// Login rate limit
+	// 'ratelimit_login_time' => 300,
+	// 'ratelimit_login_count' => 5,
+
 	// Overwrite email view logo image
 	// 'password_image_url' => 'https://path.to/image.png',
 	// 'register_image_url' => 'https://path.to/image.png',
 	// 'change_image_url' => 'https://path.to/image.png',
+	// 'f2a_image_url' => 'https://path.to/image.png',
 
 	// Disable email send in controller
 	// 'send_register_email' => false,
@@ -33,5 +38,5 @@ return [
 	// 'force_user_factory' = true,
 
 	// Notifications perpage (default 6)
-	// 'apilogin.notifications_perpage' => 15,
+	// 'notifications_perpage' => 15,
 ];
