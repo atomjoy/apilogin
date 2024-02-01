@@ -31,7 +31,7 @@ class UpdateProfileRequest extends FormRequest
 				'string',
 				'min:6',
 				'max:30',
-				'regex:/^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,20}[a-zA-Z0-9]$/',
+				'regex:/^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){2,20}[a-zA-Z0-9]$/',
 				'unique:profiles,username,' . Auth::user()->profile?->id ?? null,
 				// Rule::unique('profiles')->ignore(Auth::user()->profile?->id ?? null),
 			],
