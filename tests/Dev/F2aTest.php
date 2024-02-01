@@ -58,9 +58,13 @@ class F2aTest extends TestCase
 			return $mail->hasTo($email) && $mail->hasSubject("Authentication code.");
 		});
 
-		$response->assertStatus(302);
+		$response->assertStatus(200)->assertJson([
+			'message' => 'Authenticated.',
+		])->assertJsonStructure([
+			'redirect', 'user'
+		]);
 
-		$response->assertRedirect('/login/f2a/test-hash-f2a-123');
+		// $response->assertRedirect('/login/f2a/test-hash-f2a-123');
 
 		$this->assertDatabaseHas('f2acodes', [
 			'hash' => 'test-hash-f2a-123',
