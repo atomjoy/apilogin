@@ -21,19 +21,25 @@ class LoginController extends Controller
 			LoginUser::dispatch(Auth::user());
 
 			if (Auth::user()->f2a == 1) {
-				return redirect('/login/f2a/' . $request->f2a());
+				return response()->json([
+					'message' => __('apilogin.login.authenticated'),
+					'user' => null,
+					'redirect' => '/login/f2a/' . $request->f2a(),
+				], 200);
 			}
 
 			return response()->json([
 				'message' => __('apilogin.login.authenticated'),
 				'user' => Auth::user()->fresh([
 					'profile', 'address'
-				])
+				]),
+				'redirect' => null,
 			], 200);
 		} else {
 			return response()->json([
 				'message' => __('apilogin.login.unauthenticated'),
-				'user' => null
+				'user' => null,
+				'redirect' => null,
 			], 422);
 		}
 	}
