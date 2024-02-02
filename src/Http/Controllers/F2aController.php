@@ -43,7 +43,7 @@ class F2aController extends Controller
 			], 200);
 		} else {
 			return response()->json([
-				'message' => __('apilogin.login.unauthenticated'),
+				'message' => __('apilogin.confirm.invalid.current.password'),
 			], 422);
 		}
 	}
@@ -63,7 +63,7 @@ class F2aController extends Controller
 			], 200);
 		} else {
 			return response()->json([
-				'message' => __('apilogin.login.unauthenticated'),
+				'message' => __('apilogin.confirm.invalid.current.password'),
 			], 422);
 		}
 	}
