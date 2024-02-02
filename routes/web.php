@@ -35,8 +35,8 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 	// Private routes
 	Route::middleware(['auth'])->group(function () {
 		// 2FA auth on/off
-		Route::get('/f2a/enable', [F2aController::class, 'enable'])->name('f2a.enable');
-		Route::get('/f2a/disable', [F2aController::class, 'disable'])->name('f2a.disable');
+		Route::post('/f2a/enable', [F2aController::class, 'enable'])->name('f2a.enable');
+		Route::post('/f2a/disable', [F2aController::class, 'disable'])->name('f2a.disable');
 		// Account
 		Route::post('/password/confirm', [PasswordConfirmController::class, 'index'])->name('confirm');
 		Route::post('/password/change', [PasswordChangeController::class, 'index'])->name('change');

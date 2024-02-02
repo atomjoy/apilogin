@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Atomjoy\Apilogin\Exceptions\JsonException;
 use Atomjoy\Apilogin\Http\Requests\F2aRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class F2aController extends Controller
 {
@@ -29,7 +30,10 @@ class F2aController extends Controller
 
 	function enable()
 	{
-		if (Auth::check()) {
+		if (Auth::check() && Hash::check(
+			request('password_current'),
+			Auth::user()->password
+		)) {
 			$user = Auth::user();
 			$user->f2a = 1;
 			$user->save();
@@ -46,7 +50,10 @@ class F2aController extends Controller
 
 	function disable()
 	{
-		if (Auth::check()) {
+		if (Auth::check() && Hash::check(
+			request('password_current'),
+			Auth::user()->password
+		)) {
 			$user = Auth::user();
 			$user->f2a = 0;
 			$user->save();

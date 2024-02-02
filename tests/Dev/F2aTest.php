@@ -175,7 +175,9 @@ class F2aTest extends TestCase
 
 		Auth::login($user);
 
-		$response = $this->getJson('/web/api/f2a/enable');
+		$response = $this->postJson('/web/api/f2a/enable', [
+			'password_current' => 'Password123#'
+		]);
 
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Updated.'
@@ -199,7 +201,9 @@ class F2aTest extends TestCase
 
 		Auth::login($user);
 
-		$response = $this->getJson('/web/api/f2a/disable');
+		$response = $this->postJson('/web/api/f2a/disable', [
+			'password_current' => 'Password123#'
+		]);
 
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Updated.'
