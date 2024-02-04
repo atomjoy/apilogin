@@ -5,6 +5,9 @@ Install with composer and update.
 ## Config
 
 ```sh
+# Update
+composer update
+
 # Create migrations
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
