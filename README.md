@@ -39,12 +39,13 @@ Add profil, address, notifications relations (required).
 namespace App\Models;
 
 use Atomjoy\Apilogin\Contracts\HasProfilAddress;
+use Atomjoy\Apilogin\Contracts\HasRolesPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use HasProfilAddress;
+    use HasProfilAddress, HasRolesPermissions;
     use HasRoles;
 
     /**
