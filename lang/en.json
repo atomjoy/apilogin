@@ -67,6 +67,8 @@
 	"apilogin.logout.error": "Logged out error.",
 
 	"apilogin.middleware.not.acceptable": "Not Acceptable.",
+	"apilogin.middleware.invalid.is_admin": "User does not have the right roles (is_admin).",
+	"apilogin.middleware.invalid.role": "User does not have the right roles.",
 
 	"apilogin.email.change.success": "The e-mail with the code has been sent.",
 	"apilogin.email.change.error": "Something went wrong, please try again later.",

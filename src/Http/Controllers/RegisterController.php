@@ -41,6 +41,8 @@ class RegisterController extends Controller
 				'user_id' => $user->id
 			], []);
 
+			$user->assignRole('User');
+
 			RegisterUser::dispatch($user);
 
 			return response()->json([

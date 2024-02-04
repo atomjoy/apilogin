@@ -3,10 +3,14 @@
 namespace Atomjoy\Apilogin;
 
 use Atomjoy\Apilogin\Http\Middleware\ApiloginMiddleware;
+use Atomjoy\Apilogin\Http\Middleware\ApiloginAuthMiddleware;
 use Atomjoy\Apilogin\Providers\AuthServiceProvider;
 use Atomjoy\Apilogin\Providers\EventServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Http\Kernel;
+use Spatie\Permission\Middleware\RoleMiddleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
+use Spatie\Permission\Middleware\RoleOrPermissionMiddleware;
 
 class ApiloginServiceProvider extends ServiceProvider
 {
@@ -20,10 +24,21 @@ class ApiloginServiceProvider extends ServiceProvider
 	public function boot(Kernel $kernel)
 	{
 		$this->app['router']->aliasMiddleware('apilogin', ApiloginMiddleware::class);
+		$this->app['router']->aliasMiddleware('apilogin_is_admin', ApiloginAuthMiddleware::class);
+
+		// Spatie permissions
+		if (config('apilogin.load_permissions', true)) {
+			$this->app['router']->aliasMiddleware('role', RoleMiddleware::class);
+			$this->app['router']->aliasMiddleware('permission', PermissionMiddleware::class);
+			$this->app['router']->aliasMiddleware('role_or_permission', RoleOrPermissionMiddleware::class);
+		}
 
 		$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 		$this->loadViewsFrom(__DIR__ . '/../resources/views', 'apilogin');
-		$this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+		if (config('apilogin.load_migrations', true)) {
+			$this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+		}
 
 		if (config('apilogin.load_translations', true)) {
 			$this->loadTranslationsFrom(__DIR__ . '/../lang', 'apilogin');
@@ -42,6 +57,10 @@ class ApiloginServiceProvider extends ServiceProvider
 			$this->publishes([
 				__DIR__ . '/../lang' => base_path('lang/vendor/apilogin')
 			], 'apilogin-lang');
+
+			$this->publishes([
+				// __DIR__.'/../database/migrations/create_table.php.stub' => $this->getMigrationFileName('create_table.php'),
+			], 'apilogin-migrations');
 		}
 	}
 }

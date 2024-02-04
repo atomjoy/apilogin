@@ -67,6 +67,8 @@
 	"apilogin.logout.error": "Nie wylogowany.",
 
 	"apilogin.middleware.not.acceptable": "Not Acceptable.",
+	"apilogin.middleware.invalid.is_admin": "Użytkownik nie ma odpowiednich uprawnień (is_admin).",
+	"apilogin.middleware.invalid.role": "Użytkownik nie ma odpowiednich uprawnień.",
 
 	"apilogin.email.change.success": "Wiadomość email z kodem została wysłana.",
 	"apilogin.email.change.error": "Coś poszło nie tak, proszę spróbuj później.",

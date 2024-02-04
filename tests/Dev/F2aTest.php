@@ -60,6 +60,7 @@ class F2aTest extends TestCase
 
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Authenticated.',
+			'user' => null
 		])->assertJsonStructure([
 			'redirect', 'user'
 		]);

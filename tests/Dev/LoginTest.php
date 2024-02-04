@@ -44,8 +44,12 @@ class LoginTest extends TestCase
 
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Authenticated.',
+			'redirect' => null,
 		])->assertJsonStructure([
-			'user'
+			'user' => [
+				'is_admin', 'f2a',
+				'profile', 'address', 'roles', 'permissions'
+			],
 		])->assertJsonPath('user.email', $user->email);
 
 		$this->assertNotNull($response['user']);
@@ -243,5 +247,58 @@ class LoginTest extends TestCase
 		Event::assertDispatched(LoginUserError::class, function ($e) use ($user) {
 			return $e->valid['email'] == $user->email;
 		});
+	}
+
+	/**
+	 * Super admin login.
+	 */
+	public function test_admin_login(): void
+	{
+		Auth::logout();
+
+		$this->actingAs(User::findOrFail(1));
+
+		$response = $this->getJson('/web/api/admin/test');
+
+		$response->assertStatus(200)->assertJson([
+			'message' => 'Authenticated.'
+		]);
+	}
+
+	/**
+	 * Worer login.
+	 */
+	public function test_worker_login(): void
+	{
+		Auth::logout();
+
+		$this->actingAs(User::findOrFail(2));
+
+		$response = $this->getJson('/web/api/admin/test');
+
+		$response->assertStatus(200)->assertJson([
+			'message' => 'Authenticated.'
+		]);
+	}
+
+	/**
+	 * User login error.
+	 */
+	public function test_user_login_admin_panel(): void
+	{
+		Auth::logout();
+
+		$user = User::factory()->create([
+			'email' => 'dummy@gmail.com',
+			'password' => Hash::make('Password123#'),
+		]);
+
+		$this->actingAs($user);
+
+		$response = $this->getJson('/web/api/admin/test');
+
+		$response->assertStatus(403)->assertJson([
+			'message' => 'User does not have the right roles (is_admin).'
+		]);
 	}
 }

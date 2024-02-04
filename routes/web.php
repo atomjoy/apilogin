@@ -20,6 +20,7 @@ use Atomjoy\Apilogin\Http\Controllers\NotificationsController;
 use Atomjoy\Apilogin\Http\Controllers\F2aController;
 use Illuminate\Support\Facades\Route;
 
+// User routes
 Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->group(function () {
 	// Public routes
 	Route::get('/activate/{id}/{code}', [ActivateController::class, 'index'])->name('activate');
@@ -56,5 +57,19 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 		Route::post('/remove/avatar', [UploadAvatarController::class, 'remove'])->name('remove.avatar');
 		// Show image
 		Route::get('/show/avatar', [UploadAvatarController::class, 'show'])->name('show.avatar')->withoutMiddleware('apilogin');
+	});
+});
+
+// Private admin, worker panel routes for a specific web guard
+Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
+	'web', 'auth',
+	'apilogin', 'apilogin_is_admin',
+	'role:super_admin|worker,web'
+])->group(function () {
+	// Routes
+	Route::get('/test', function () {
+		return response()->json([
+			'message' => 'Authenticated.'
+		]);
 	});
 });

@@ -21,6 +21,11 @@ class LoggedTest extends TestCase
 		$response = $this->getJson('/web/api/logged');
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Authenticated.'
+		])->assertJsonStructure([
+			'user' => [
+				'is_admin', 'f2a',
+				'profile', 'address', 'roles', 'permissions'
+			],
 		]);
 	}
 

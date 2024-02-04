@@ -31,7 +31,7 @@ class LoginController extends Controller
 			return response()->json([
 				'message' => __('apilogin.login.authenticated'),
 				'user' => Auth::user()->fresh([
-					'profile', 'address'
+					'profile', 'address', 'roles', 'permissions'
 				]),
 				'redirect' => null,
 			], 200);

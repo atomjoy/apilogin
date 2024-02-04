@@ -13,6 +13,7 @@ return new class extends Migration
 	{
 		Schema::table('users', function (Blueprint $table) {
 			$table->tinyInteger('f2a')->unsigned()->default(0);
+			$table->tinyInteger('is_admin')->unsigned()->default(0);
 		});
 	}
 
@@ -23,6 +24,7 @@ return new class extends Migration
 	{
 		Schema::table('users', function (Blueprint $table) {
 			$table->dropColumn('f2a');
+			$table->dropColumn('is_admin');
 		});
 	}
 };

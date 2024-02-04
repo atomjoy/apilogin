@@ -2,6 +2,16 @@
 
 Install with composer and update.
 
+## Config
+
+```sh
+# Create migrations
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+# Then change the beginning of the permission migration file name to
+2023_01_01_100000_create_permission_tables.php
+```
+
 ## Databases
 
 ```sh
@@ -15,8 +25,8 @@ php artisan migrate
 # Refresh tables
 php artisan migrate:fresh
 
-# Run seeders (optional)
-php artisan db:seed --class=ApiloginSeeder
+# Run permissions seeder
+php artisan db:seed --class=ApiloginPermissionsSeeder
 ```
 
 ### Add in User model
@@ -29,15 +39,23 @@ Add profil, address, notifications relations (required).
 namespace App\Models;
 
 use Atomjoy\Apilogin\Contracts\HasProfilAddress;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasProfilAddress;
+    use HasApiTokens, HasFactory, Notifiable;
+    use HasProfilAddress;
+    use HasRoles;
+
+    /**
+    * Auth guard.
+    */
+    protected $guard = 'web';
 
     /**
     * Append user relations (optional).
     */
-    protected $with = ['profile', 'address'];
+    protected $with = ['profile'];
 
     // ...
 }
