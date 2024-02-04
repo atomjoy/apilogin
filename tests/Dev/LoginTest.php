@@ -28,6 +28,8 @@ class LoginTest extends TestCase
 			'password' => Hash::make('Password123#'),
 		]);
 
+		$user->assignRole(['user']);
+
 		$name = $user->name;
 		$email = $user->email;
 		$password = 'Password123#';
@@ -45,10 +47,23 @@ class LoginTest extends TestCase
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Authenticated.',
 			'redirect' => null,
+			'user' => [
+				'roles' => [
+					['name' => 'user'],
+				],
+				'roles_permissions' => [
+					[
+						'name' => 'user',
+						'permissions' => [
+							['name' => 'login_access']
+						],
+					],
+				]
+			]
 		])->assertJsonStructure([
 			'user' => [
 				'is_admin', 'f2a',
-				'profile', 'address', 'roles', 'permissions'
+				'profile', 'address', 'roles', 'roles_permissions'
 			],
 		])->assertJsonPath('user.email', $user->email);
 

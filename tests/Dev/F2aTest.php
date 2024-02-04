@@ -95,6 +95,8 @@ class F2aTest extends TestCase
 			'password' => Hash::make('Password123#'),
 		]);
 
+		$user->assignRole('user');
+
 		$hash = 'hash-1234-hash-1234';
 		$code = 777888;
 
@@ -116,8 +118,24 @@ class F2aTest extends TestCase
 
 		$response->assertStatus(200)->assertJson([
 			'message' => 'Authenticated.',
+			'user' => [
+				'roles' => [
+					['name' => 'user'],
+				],
+				'roles_permissions' => [
+					[
+						'name' => 'user',
+						'permissions' => [
+							['name' => 'login_access']
+						],
+					],
+				]
+			]
 		])->assertJsonStructure([
-			'user'
+			'user' => [
+				'is_admin', 'f2a',
+				'profile', 'address', 'roles', 'roles_permissions'
+			],
 		])->assertJsonPath('user.email', $user->email);
 
 		$this->assertSoftDeleted('f2acodes', [

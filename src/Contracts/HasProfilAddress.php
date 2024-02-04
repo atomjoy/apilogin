@@ -5,6 +5,7 @@ namespace Atomjoy\Apilogin\Contracts;
 use Atomjoy\Apilogin\Models\Address;
 use Atomjoy\Apilogin\Models\Profile;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use \Spatie\Permission\Traits\HasRoles;
 
 trait HasProfilAddress
 {
@@ -22,5 +23,15 @@ trait HasProfilAddress
 	public function profile(): HasOne
 	{
 		return $this->hasOne(Profile::class);
+	}
+
+	/**
+	 * Spatie roles with permissions
+	 */
+	public function roles_permissions()
+	{
+		return $this->roles()->with(['permissions' => function ($q) {
+			$q->select('id', 'name', 'guard_name');
+		}]);
 	}
 }

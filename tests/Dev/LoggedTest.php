@@ -16,15 +16,30 @@ class LoggedTest extends TestCase
 	{
 		$user = User::factory()->create();
 
+		$user->assignRole(['user']);
+
 		$this->actingAs($user);
 
 		$response = $this->getJson('/web/api/logged');
 		$response->assertStatus(200)->assertJson([
-			'message' => 'Authenticated.'
+			'message' => 'Authenticated.',
+			'user' => [
+				'roles' => [
+					['name' => 'user'],
+				],
+				'roles_permissions' => [
+					[
+						'name' => 'user',
+						'permissions' => [
+							['name' => 'login_access']
+						],
+					],
+				]
+			]
 		])->assertJsonStructure([
 			'user' => [
 				'is_admin', 'f2a',
-				'profile', 'address', 'roles', 'permissions'
+				'profile', 'address', 'roles', 'roles_permissions'
 			],
 		]);
 	}
