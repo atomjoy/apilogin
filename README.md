@@ -48,6 +48,11 @@ class User extends Authenticatable
     use HasRoles;
 
     /**
+    * Model table.
+    */
+    protected $table = 'users';
+
+    /**
     * Auth guard.
     */
     protected $guard = 'web';
