@@ -24,9 +24,6 @@ php artisan migrate
 
 # Refresh tables
 php artisan migrate:fresh
-
-# Run permissions seeder
-php artisan db:seed --class=ApiloginPermissionsSeeder
 ```
 
 ### Add in User model
@@ -93,7 +90,13 @@ php artisan lang:publish
 php artisan vendor:publish --tag=apilogin-views --force
 php artisan vendor:publish --tag=apilogin-lang --force
 php artisan vendor:publish --tag=apilogin-config--force
+# Permissions seeder
+php artisan db:seed --class=ApiloginPermissionsSeeder
 ```
+
+## Default admin credentials
+
+See migration file 2023_08_04_105808_create_admin_users_table.php
 
 ## Tests
 
