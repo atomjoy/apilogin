@@ -5,7 +5,6 @@ namespace Atomjoy\Apilogin\Contracts;
 use Atomjoy\Apilogin\Models\Address;
 use Atomjoy\Apilogin\Models\Profile;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use \Spatie\Permission\Traits\HasRoles;
 
 trait HasProfilAddress
 {
