@@ -19,6 +19,16 @@ class ApiloginServiceProvider extends ServiceProvider
 		$this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'apilogin');
 		$this->app->register(EventServiceProvider::class);
 		// $this->app->register(AuthServiceProvider::class);
+
+		if (config('apilogin.overwrite_disk_s3', true)) {
+			$this->app->config["filesystems.disks.s3"] = [
+				'driver' => 'local',
+				'root' => storage_path('app/public'),
+				'url' => env('APP_URL') . '/storage',
+				'visibility' => 'public',
+				'throw' => false,
+			];
+		}
 	}
 
 	public function boot(Kernel $kernel)

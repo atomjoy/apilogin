@@ -1,6 +1,9 @@
 <?php
 
 return [
+	// Disable Storage::disk s3 overwrite
+	// 'apilogin.overwrite_disk_s3' => false
+
 	// Login rate limit
 	// 'ratelimit_login_time' => 300,
 	// 'ratelimit_login_count' => 5,

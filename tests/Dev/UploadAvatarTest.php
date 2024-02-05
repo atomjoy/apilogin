@@ -15,7 +15,9 @@ class UploadAvatarTest extends TestCase
 	/** @test */
 	function upload_avatar()
 	{
-		Storage::fake('public');
+		$disk = 's3';
+
+		Storage::fake($disk);
 
 		$user = User::factory()->create([
 			'name' => 'Adelajda Brzęczyszczykiewicz',
@@ -58,6 +60,6 @@ class UploadAvatarTest extends TestCase
 			'avatar' => 'avatars/' . $user->id . '.webp',
 		]);
 
-		Storage::disk('public')->assertExists('avatars/' . $user->id . '.webp');
+		Storage::disk($disk)->assertExists('avatars/' . $user->id . '.webp');
 	}
 }

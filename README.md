@@ -84,6 +84,17 @@ Route::get('/activate/{id}/{code}', [ActivateController::class, 'index'])->name(
 php artisan serve --host=localhost --port=8000
 ```
 
+### Overwrite s3 disk (avatar, images upload)
+
+Disable amazon S3 disk overwriting if you have it installed.
+
+```php
+// config/apilogin.php
+return [
+  'apilogin.overwrite_disk_s3' => false
+]
+```
+
 ## Routes prefix: /web/api
 
 Routes in file routes/web.php

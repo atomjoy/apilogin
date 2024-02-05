@@ -15,6 +15,8 @@ use Response;
 
 class UploadAvatarController extends Controller
 {
+	protected $disk = 's3';
+
 	function index(UploadAvatarRequest $request)
 	{
 		try {
@@ -24,7 +26,7 @@ class UploadAvatarController extends Controller
 
 			// $path = $request->file('avatar')->storeAs('avatars', $filename, 'public');
 
-			$path = Storage::disk('public')
+			$path = Storage::disk($this->disk)
 				->putFileAs(
 					'avatars',
 					$request->file('avatar'),
@@ -65,8 +67,8 @@ class UploadAvatarController extends Controller
 
 			$filename = 'avatars/' . Auth::id() . '.webp';
 
-			if (Storage::disk('public')->exists($filename)) {
-				Storage::disk('public')->delete($filename);
+			if (Storage::disk($this->disk)->exists($filename)) {
+				Storage::disk($this->disk)->delete($filename);
 				Auth::user()->profile()->update(['avatar' => null]);
 			}
 
@@ -95,12 +97,12 @@ class UploadAvatarController extends Controller
 
 			$filename = '/avatars/' . $id . '.webp';
 
-			$exists = Storage::disk('public')->exists($filename);
+			$exists = Storage::disk($this->disk)->exists($filename);
 
 			if ($exists) {
-				$mime = Storage::disk('public')->mimeType($filename);
+				$mime = Storage::disk($this->disk)->mimeType($filename);
 
-				$content = Storage::disk('public')->get($filename);
+				$content = Storage::disk($this->disk)->get($filename);
 
 				$response = Response::make($content, 200);
 
