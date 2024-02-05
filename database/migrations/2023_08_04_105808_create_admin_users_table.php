@@ -26,6 +26,8 @@ return new class extends Migration
 			'username' => 'admin',
 		]);
 
+		$admin->address()->create([]);
+
 		$admin->assignRole('user');
 		$admin->assignRole('super_admin');
 
@@ -39,6 +41,8 @@ return new class extends Migration
 			'name' => 'Worker User',
 			'username' => 'worker',
 		]);
+
+		$worker->address()->create([]);
 
 		$worker->email_verified_at = now();
 		$worker->is_admin = 1;
