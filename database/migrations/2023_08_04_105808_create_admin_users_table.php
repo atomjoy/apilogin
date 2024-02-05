@@ -35,7 +35,7 @@ return new class extends Migration
 			'password' => 'Password123#',
 		]);
 
-		$admin->profile()->create([
+		$worker->profile()->create([
 			'name' => 'Worker User',
 			'username' => 'worker',
 		]);
