@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Config;
@@ -16,11 +15,16 @@ return new class extends Migration
 			'name' => 'Admin User',
 			'email' => Config::get('atomjoy.super_admin_email', 'admin@atom.joy'),
 			'password' => 'Password123#',
-			'email_verified_at' => Carbon::now(),
 		]);
 
+		$admin->email_verified_at = now();
 		$admin->is_admin = 1;
 		$admin->save();
+
+		$admin->profile()->create([
+			'name' => 'Admin User',
+			'username' => 'admin',
+		]);
 
 		$admin->assignRole('user');
 		$admin->assignRole('super_admin');
@@ -29,9 +33,14 @@ return new class extends Migration
 			'name' => 'Worker User',
 			'email' => Config::get('atomjoy.worker_admin_email', 'worker@atom.joy'),
 			'password' => 'Password123#',
-			'email_verified_at' => Carbon::now(),
 		]);
 
+		$admin->profile()->create([
+			'name' => 'Worker User',
+			'username' => 'worker',
+		]);
+
+		$worker->email_verified_at = now();
 		$worker->is_admin = 1;
 		$worker->save();
 
