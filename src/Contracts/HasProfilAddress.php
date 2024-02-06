@@ -2,6 +2,7 @@
 
 namespace Atomjoy\Apilogin\Contracts;
 
+use App\Models\User;
 use Atomjoy\Apilogin\Models\Address;
 use Atomjoy\Apilogin\Models\Profile;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -24,13 +25,19 @@ trait HasProfilAddress
 		return $this->hasOne(Profile::class);
 	}
 
-	// /**
-	//  * Spatie roles with permissions
-	//  */
-	// public function roles_permissions()
-	// {
-	// 	return $this->roles()->with(['permissions' => function ($q) {
-	// 		$q->select('id', 'name', 'guard_name');
-	// 	}]);
-	// }
+	/**
+	 * The "booted" method of the model events.
+	 */
+	protected static function booted(): void
+	{
+		parent::boot();
+
+		static::created(function (User $user) {
+			$user->address()->create([]);
+			$user->profile()->create([
+				'name' => ucfirst($user->nane) ?? config('apilogin.dafault.user.name', 'Guest ' . time()),
+				'username' => uniqid('user.'),
+			]);
+		});
+	}
 }
