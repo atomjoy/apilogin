@@ -14,14 +14,13 @@ return new class extends Migration
 		Schema::create('profiles', function (Blueprint $table) {
 			$table->id();
 			$table->unsignedBigInteger('user_id')->unique();
-			$table->string('username', 100);
+			$table->string('username', 50)->unique();
 			$table->string('name', 50)->nullable();
 			$table->string('location', 50)->nullable();
 			$table->string('avatar')->nullable();
 			$table->text('bio')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
-			$table->unique('username');
 			$table->foreign('user_id')
 				->references('id')
 				->on('users')
