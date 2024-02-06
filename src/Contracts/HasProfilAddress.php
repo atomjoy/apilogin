@@ -28,16 +28,16 @@ trait HasProfilAddress
 	/**
 	 * The "booted" method of the model events.
 	 */
-	protected static function booted(): void
-	{
-		parent::boot();
+	// protected static function booted(): void
+	// {
+	// 	parent::boot();
 
-		static::created(function (User $user) {
-			$user->address()->create([]);
-			$user->profile()->create([
-				'name' => ucfirst($user->nane) ?? config('apilogin.dafault.user.name', 'Guest ' . time()),
-				'username' => uniqid('user.'),
-			]);
-		});
-	}
+	// 	static::created(function (User $user) {
+	// 		$user->address()->sync([]);
+	// 		$user->profile()->sync([
+	// 			'name' => ucfirst($user->nane) ?? config('apilogin.dafault.user.name', 'Guest ' . time()),
+	// 			'username' => uniqid('user.'),
+	// 		]);
+	// 	});
+	// }
 }
