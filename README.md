@@ -84,17 +84,6 @@ Route::get('/activate/{id}/{code}', [ActivateController::class, 'index'])->name(
 php artisan serve --host=localhost --port=8000
 ```
 
-### Overwrite s3 disk (avatar, images upload)
-
-Disable amazon S3 disk overwriting if you have it installed.
-
-```php
-// config/apilogin.php
-return [
-  'apilogin.overwrite_disk_s3' => false
-]
-```
-
 ## Routes prefix: /web/api
 
 Routes in file routes/web.php
@@ -107,16 +96,41 @@ Route params search in: src/Http/Requests
 
 ```sh
 php artisan lang:publish
+php artisan vendor:publish --tag=apilogin-config--force
 php artisan vendor:publish --tag=apilogin-views --force
 php artisan vendor:publish --tag=apilogin-lang --force
-php artisan vendor:publish --tag=apilogin-config--force
-# Permissions seeder
+# Permissions seeder migrations
 php artisan db:seed --class=ApiloginPermissionsSeeder
 ```
 
 ## Default admin credentials
 
-See migration file 2023_08_04_105808_create_admin_users_table.php
+Change before running the migration command (php artisan). See migration file 2023_08_04_105808_create_admin_users_table.php.
+
+```php
+// config/apilogin.php
+return [
+  // Admin users emails (email with dns mx)
+  'super_admin_email' => 'admin@gmail.com',
+  'worker_admin_email' => 'worker@gmail.com',
+
+  // Admin users passsword
+  'super_admin_password' => 'Password123#',
+  'worker_admin_password' => 'Password123#',
+]
+```
+
+### Overwrite s3 disk (avatar, images upload), admin emails
+
+Disable amazon S3 disk overwriting if you have it installed (optional).
+
+```php
+// config/apilogin.php
+return [
+  // Disable Storage::disk s3 to public overwrite
+  'apilogin.overwrite_disk_s3' => false,
+]
+```
 
 ## Tests
 

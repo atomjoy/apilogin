@@ -1,7 +1,15 @@
 <?php
 
 return [
-	// Disable Storage::disk s3 overwrite
+	// Admin users email (email with dns mx)
+	// 'super_admin_email' => 'admin@example.com',
+	// 'worker_admin_email' => 'worker@example.com',
+
+	// Admin users passsword
+	// 'super_admin_password' => 'Password123#',
+	// 'worker_admin_password' => 'Password123#',
+
+	// Disable Storage::disk s3 to public overwrite
 	// 'apilogin.overwrite_disk_s3' => false
 
 	// Login rate limit

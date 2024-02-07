@@ -40,7 +40,7 @@ class UploadAvatarController extends Controller
 			if ($profile == null) {
 				$data = [
 					'avatar' => $path,
-					'name' => $user->name ?? 'Czereśniak',
+					'name' => $user->name ?? 'Guest',
 					'username' => uniqid('user.'),
 				];
 			}
@@ -80,7 +80,6 @@ class UploadAvatarController extends Controller
 			throw new JsonException(__('apilogin.remove.avatar.error'), 422);
 		}
 	}
-
 
 	public function show()
 	{

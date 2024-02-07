@@ -2,6 +2,7 @@
 
 namespace Atomjoy\Apilogin\Contracts;
 
+use App\Models\User;
 use Atomjoy\Apilogin\Models\Address;
 use Atomjoy\Apilogin\Models\Profile;
 use Illuminate\Database\Eloquent\Relations\HasOne;
