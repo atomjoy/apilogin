@@ -4,6 +4,7 @@ namespace Atomjoy\Apilogin;
 
 use Atomjoy\Apilogin\Http\Middleware\ApiloginMiddleware;
 use Atomjoy\Apilogin\Http\Middleware\ApiloginAuthMiddleware;
+use Atomjoy\Apilogin\Http\Middleware\ApiloginAuthAdminMiddleware;
 use Atomjoy\Apilogin\Providers\AuthServiceProvider;
 use Atomjoy\Apilogin\Providers\EventServiceProvider;
 use Illuminate\Support\ServiceProvider;
@@ -29,12 +30,23 @@ class ApiloginServiceProvider extends ServiceProvider
 				'throw' => false,
 			];
 		}
+
+		// Admin guard and provider
+		$this->app->config["auth.guards.admin"] = [
+			'driver' => 'session',
+			'provider' => 'admins',
+		];
+
+		$this->app->config["auth.providers.admins"] = [
+			'driver' => 'eloquent',
+			'model' => \Atomjoy\Apilogin\Models\Admin::class,
+		];
 	}
 
 	public function boot(Kernel $kernel)
 	{
 		$this->app['router']->aliasMiddleware('apilogin', ApiloginMiddleware::class);
-		$this->app['router']->aliasMiddleware('apilogin_is_admin', ApiloginAuthMiddleware::class);
+		$this->app['router']->aliasMiddleware('apilogin_is_admin', ApiloginAuthAdminMiddleware::class);
 
 		// Spatie permissions
 		if (config('apilogin.load_permissions', true)) {

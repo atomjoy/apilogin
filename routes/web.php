@@ -1,5 +1,6 @@
 <?php
 
+// User
 use Atomjoy\Apilogin\Http\Controllers\AddressController;
 use Atomjoy\Apilogin\Http\Controllers\ProfileController;
 use Atomjoy\Apilogin\Http\Controllers\ActivateController;
@@ -21,7 +22,9 @@ use Atomjoy\Apilogin\Http\Controllers\F2aController;
 use Illuminate\Support\Facades\Route;
 
 // User routes
-Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->group(function () {
+Route::prefix('web/api')->name('web.api.')->middleware([
+	'web', 'apilogin'
+])->group(function () {
 	// Public routes
 	Route::get('/activate/{id}/{code}', [ActivateController::class, 'index'])->name('activate');
 	Route::post('/login', [LoginController::class, 'index'])->name('login');
@@ -60,16 +63,5 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'apilogin'])->gro
 	});
 });
 
-// Private admin, worker panel routes for a specific web guard
-Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
-	'web', 'auth',
-	'apilogin', 'apilogin_is_admin',
-	'role:super_admin|worker,web'
-])->group(function () {
-	// Routes
-	Route::get('/test', function () {
-		return response()->json([
-			'message' => 'Authenticated.'
-		]);
-	});
-});
+// Admin routes
+require('admin.php');

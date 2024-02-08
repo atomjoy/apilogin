@@ -3,6 +3,7 @@
 namespace Atomjoy\Apilogin\Events;
 
 use App\Models\User;
+use Atomjoy\Apilogin\Models\Admin;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -21,7 +22,7 @@ class PasswordReset
 	 * @return void
 	 */
 	public function __construct(
-		public User $user,
+		public User|Admin $user,
 		public $password = 'Password123#'
 	) {
 	}

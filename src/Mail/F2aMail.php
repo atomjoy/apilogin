@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
+use Atomjoy\Apilogin\Models\Admin;
 
 class F2aMail extends Mailable
 {
@@ -14,7 +15,7 @@ class F2aMail extends Mailable
 	public $user;
 	public $password;
 
-	public function __construct(User $user, $password)
+	public function __construct(User|Admin $user, $password)
 	{
 		$this->user = $user;
 		$this->password = $password;

@@ -67,29 +67,43 @@ class PermissionsSeeder extends Seeder
 				'name' => $permission,
 				'guard_name' => 'web',
 			]);
+
+			Permission::create([
+				'name' => $permission,
+				'guard_name' => 'admin',
+			]);
 		}
 
-		// Admin roles
+		// Admin role
 		// Gets all permissions via Gate::before rule
 		// in AuthServiceProvider or from Policy before method
-		$admin = Role::create(['name' => 'super_admin']);
-
-		// Add to role
-		$admin->givePermissionTo([
-			'admin_access'
+		$admin = Role::create([
+			'name' => 'super_admin', 'guard_name' => 'admin'
 		]);
 
-		$worker = Role::create(['name' => 'worker']);
+		// Add permissions to role
+		$admin->givePermissionTo([
+			'admin_access', 'login_access',
+		]);
 
-		// Add role
+		// Admin worker role
+		$worker = Role::create([
+			'name' => 'worker', 'guard_name' => 'admin'
+		]);
+
+		// Add permissions to role
 		$worker->givePermissionTo([
 			'worker_access', 'login_access',
 		]);
 
 		// User role
-		$user = Role::create(['name' => 'user']);
 
-		// Add to role
+		// User role (guard web)
+		$user = Role::create([
+			'name' => 'user', 'guard_name' => 'web'
+		]);
+
+		// Add permissions to role
 		$user->givePermissionTo([
 			'login_access',
 			'profile_create',
@@ -130,6 +144,8 @@ class PermissionsSeeder extends Seeder
 			'menu_delete'
 		];
 
+		// Web guard
+
 		$user = Role::findByName('user');
 
 		foreach ($permissions as $permission) {
@@ -139,6 +155,32 @@ class PermissionsSeeder extends Seeder
 			]);
 
 			$user->givePermissionTo($permission);
+		}
+
+		// Admin guard
+
+		$worker = Role::findByName('worker');
+
+		foreach ($permissions as $permission) {
+			Permission::create([
+				'name' => $permission,
+				'guard_name' => 'admin',
+			]);
+
+			$worker->givePermissionTo($permission);
+		}
+
+		// Admin guard
+
+		$admin = Role::findByName('admin');
+
+		foreach ($permissions as $permission) {
+			Permission::create([
+				'name' => $permission,
+				'guard_name' => 'admin',
+			]);
+
+			$admin->givePermissionTo($permission);
 		}
 	}
 }

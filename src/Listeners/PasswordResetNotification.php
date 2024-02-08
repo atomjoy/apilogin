@@ -8,6 +8,7 @@ use Atomjoy\Apilogin\Events\PasswordReset;
 use Atomjoy\Apilogin\Events\PasswordResetMail;
 use Atomjoy\Apilogin\Events\PasswordResetMailError;
 use Atomjoy\Apilogin\Mail\PasswordMail;
+use Atomjoy\Apilogin\Models\Admin;
 use Illuminate\Support\Facades\Mail;
 
 class PasswordResetNotification
@@ -17,7 +18,7 @@ class PasswordResetNotification
 		$this->sendEmail($event->user, $event->password);
 	}
 
-	public function sendEmail(User $user, $password)
+	public function sendEmail(User|Admin $user, $password)
 	{
 		if (config('apilogin.send_password_email', true)) {
 			try {

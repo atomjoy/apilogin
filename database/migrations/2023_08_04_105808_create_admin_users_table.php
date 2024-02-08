@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use Atomjoy\Apilogin\Models\Admin;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Config;
 
@@ -11,44 +11,30 @@ return new class extends Migration
 	 */
 	public function up(): void
 	{
-		$admin = User::create([
+		$admin = Admin::create([
 			'name' => 'Admin User',
 			'email' => Config::get('atomjoy.super_admin_email', 'admin@example.com'),
 			'password' => Config::get('apilogin.super_admin_password', 'Password123#'),
+			'username' => 'admin',
 		]);
 
 		$admin->email_verified_at = now();
 		$admin->is_admin = 1;
 		$admin->save();
 
-		$admin->profile()->create([
-			'name' => 'Admin User',
-			'username' => 'admin',
-		]);
-
-		$admin->address()->create([]);
-
-		$admin->assignRole('user');
 		$admin->assignRole('super_admin');
 
-		$worker = User::create([
+		$worker = Admin::create([
 			'name' => 'Worker User',
 			'email' => Config::get('atomjoy.worker_admin_email', 'worker@example.com'),
 			'password' => Config::get('apilogin.worker_admin_password', 'Password123#'),
-		]);
-
-		$worker->profile()->create([
-			'name' => 'Worker User',
 			'username' => 'worker',
 		]);
-
-		$worker->address()->create([]);
 
 		$worker->email_verified_at = now();
 		$worker->is_admin = 1;
 		$worker->save();
 
-		$worker->assignRole('user');
 		$worker->assignRole('worker');
 	}
 

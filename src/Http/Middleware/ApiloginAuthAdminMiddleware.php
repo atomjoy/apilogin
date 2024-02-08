@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Auth;
  * @param  \Closure  $next
  * @return mixed
  */
-class ApiloginAuthMiddleware
+class ApiloginAuthAdminMiddleware
 {
 	public function handle($request, Closure $next)
 	{
-		if (!Auth::check() || Auth::user()->is_admin != 1) {
+		if (!Auth::guard('admin')->check() || Auth::guard('admin')->user()->is_admin != 1) {
 			throw new JsonException(__('apilogin.middleware.invalid.is_admin'), 403);
 		}
 
