@@ -19,7 +19,11 @@ Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
 
 	// Private routes (guard admin)
 	Route::middleware([
-		'auth:admin', 'apilogin_is_admin', 'role:super_admin|worker,admin'
+		'auth:admin', 'apilogin_is_admin',
+		'role:' . config(
+			'apilogin.allowed_admin_roles',
+			'super_admin|worker'
+		) . ',admin'
 	])->group(function () {
 		// 2FA auth on/off
 		Route::post('/f2a/enable', [AdminF2aController::class, 'enable'])->name('f2a.enable');
