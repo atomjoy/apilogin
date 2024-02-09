@@ -11,6 +11,7 @@ return new class extends Migration
 	 */
 	public function up(): void
 	{
+		// Super Admin
 		$superadmin = Admin::create([
 			'name' => 'Super Admin',
 			'email' => Config::get('atomjoy.super_admin_email', 'superadmin@example.com'),
@@ -24,6 +25,7 @@ return new class extends Migration
 
 		$superadmin->assignRole('super_admin');
 
+		// Admin
 		$admin = Admin::create([
 			'name' => 'Admin',
 			'email' => Config::get('atomjoy.admin_email', 'admin@example.com'),
@@ -37,6 +39,7 @@ return new class extends Migration
 
 		$admin->assignRole('admin');
 
+		// Worker
 		$worker = Admin::create([
 			'name' => 'Worker',
 			'email' => Config::get('atomjoy.worker_email', 'worker@example.com'),

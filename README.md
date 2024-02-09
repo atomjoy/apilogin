@@ -1,6 +1,10 @@
-# Laravel api login
+# Laravel API Authentication
 
-Install with composer and update.
+Multi guard authentication API with sessions in Laravel.
+
+## Install
+
+Update with compoer.
 
 ## Config
 
