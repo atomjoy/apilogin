@@ -97,13 +97,13 @@ class PermissionsSeeder extends Seeder
 		// Writer role
 
 		// Writer role (guard web)
-		$user = Role::create([
+		$writer = Role::create([
 			'name' => 'writer',
 			'guard_name' => 'web'
 		]);
 
 		// Add permissions to role
-		$user->givePermissionTo([
+		$writer->givePermissionTo([
 			'writer_access',
 		]);
 	}
@@ -111,16 +111,14 @@ class PermissionsSeeder extends Seeder
 	function add_user_role_permissions()
 	{
 		$permissions = [
-			'menu_access',
-			'menu_create',
-			'menu_show',
-			'menu_edit',
-			'menu_delete'
+			'article_access',
+			'article_create',
+			'article_show',
+			'article_edit',
+			'article_delete'
 		];
 
-		// Web guard
-
-		$user = Role::findByName('user');
+		$role = Role::findByName('user');
 
 		foreach ($permissions as $permission) {
 			Permission::create([
@@ -128,12 +126,21 @@ class PermissionsSeeder extends Seeder
 				'guard_name' => 'web',
 			]);
 
-			$user->givePermissionTo($permission);
+			$role->givePermissionTo($permission);
 		}
+	}
 
-		// Admin guard
+	function add_super_admin_role_permissions()
+	{
+		$permissions = [
+			'manage_users_access',
+			'manage_users_create',
+			'manage_users_show',
+			'manage_users_edit',
+			'manage_users_delete'
+		];
 
-		$worker = Role::findByName('worker');
+		$role = Role::findByName('super_admin');
 
 		foreach ($permissions as $permission) {
 			Permission::create([
@@ -141,20 +148,7 @@ class PermissionsSeeder extends Seeder
 				'guard_name' => 'admin',
 			]);
 
-			$worker->givePermissionTo($permission);
-		}
-
-		// Admin guard
-
-		$admin = Role::findByName('admin');
-
-		foreach ($permissions as $permission) {
-			Permission::create([
-				'name' => $permission,
-				'guard_name' => 'admin',
-			]);
-
-			$admin->givePermissionTo($permission);
+			$role->givePermissionTo($permission);
 		}
 	}
 }
