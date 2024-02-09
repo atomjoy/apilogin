@@ -39,8 +39,8 @@ return new class extends Migration
 
 		$worker = Admin::create([
 			'name' => 'Worker',
-			'email' => Config::get('atomjoy.worker_admin_email', 'worker@example.com'),
-			'password' => Config::get('apilogin.worker_admin_password', 'Password123#'),
+			'email' => Config::get('atomjoy.worker_email', 'worker@example.com'),
+			'password' => Config::get('apilogin.worker_password', 'Password123#'),
 			'username' => 'worker',
 		]);
 

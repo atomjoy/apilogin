@@ -22,7 +22,7 @@ Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
 		'auth:admin', 'apilogin_is_admin',
 		'role:' . config(
 			'apilogin.allowed_admin_roles',
-			'super_admin|worker'
+			'super_admin|admin|worker'
 		) . ',admin'
 	])->group(function () {
 		// 2FA auth on/off
