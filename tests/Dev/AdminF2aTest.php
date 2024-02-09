@@ -144,6 +144,7 @@ class AdminF2aTest extends TestCase
 					[
 						'name' => 'super_admin',
 						'permissions' => [
+							['name' => 'super_admin_access'],
 							['name' => 'admin_access'],
 							['name' => 'login_access']
 						],

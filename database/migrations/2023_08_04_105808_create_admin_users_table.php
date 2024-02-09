@@ -11,10 +11,23 @@ return new class extends Migration
 	 */
 	public function up(): void
 	{
-		$admin = Admin::create([
-			'name' => 'Admin User',
-			'email' => Config::get('atomjoy.super_admin_email', 'admin@example.com'),
+		$superadmin = Admin::create([
+			'name' => 'Super Admin',
+			'email' => Config::get('atomjoy.super_admin_email', 'superadmin@example.com'),
 			'password' => Config::get('apilogin.super_admin_password', 'Password123#'),
+			'username' => 'superadmin',
+		]);
+
+		$superadmin->email_verified_at = now();
+		$superadmin->is_admin = 1;
+		$superadmin->save();
+
+		$superadmin->assignRole('super_admin');
+
+		$admin = Admin::create([
+			'name' => 'Admin',
+			'email' => Config::get('atomjoy.admin_email', 'admin@example.com'),
+			'password' => Config::get('apilogin.admin_password', 'Password123#'),
 			'username' => 'admin',
 		]);
 
@@ -22,10 +35,10 @@ return new class extends Migration
 		$admin->is_admin = 1;
 		$admin->save();
 
-		$admin->assignRole('super_admin');
+		$admin->assignRole('admin');
 
 		$worker = Admin::create([
-			'name' => 'Worker User',
+			'name' => 'Worker',
 			'email' => Config::get('atomjoy.worker_admin_email', 'worker@example.com'),
 			'password' => Config::get('apilogin.worker_admin_password', 'Password123#'),
 			'username' => 'worker',
