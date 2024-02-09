@@ -31,6 +31,7 @@ class LoggedTest extends TestCase
 					[
 						'name' => 'user',
 						'permissions' => [
+							['name' => 'user_access'],
 							['name' => 'login_access']
 						],
 					],

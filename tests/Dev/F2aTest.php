@@ -126,6 +126,7 @@ class F2aTest extends TestCase
 					[
 						'name' => 'user',
 						'permissions' => [
+							['name' => 'user_access'],
 							['name' => 'login_access']
 						],
 					],
