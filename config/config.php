@@ -12,7 +12,7 @@ return [
 	// 'worker_password' => 'Password123#',
 
 	// Disable Storage::disk s3 to public overwrite
-	// 'apilogin.overwrite_disk_s3' => false
+	// 'overwrite_disk_s3' => false
 
 	// Login rate limit
 	// 'ratelimit_login_time' => 300,

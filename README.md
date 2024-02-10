@@ -2,17 +2,15 @@
 
 Multi guard authentication API with sessions in Laravel.
 
-## Install
+## COnfig
 
-Update with compoer.
-
-## Config
+Install databases and update with composer.
 
 ```sh
 # Update
 composer update
 
-# Create migrations
+# Create permissions migrations
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
 # Then change the beginning of the permission migration file name to
@@ -109,18 +107,20 @@ php artisan db:seed --class=ApiloginPermissionsSeeder
 
 ## Default admin credentials
 
-Change before running the migration command (php artisan). See migration file 2023_08_04_105808_create_admin_users_table.php.
+Change before running the migration. See migration file 2023_08_04_105808_create_admin_users_table.php.
 
 ```php
 // config/apilogin.php
 return [
   // Admin users emails (email with dns mx)
-  'super_admin_email' => 'admin@gmail.com',
-  'worker_admin_email' => 'worker@gmail.com',
+  'super_admin_email' => 'superadmin@gmail.com',
+  'admin_email' => 'admin@gmail.com',
+  'worker_email' => 'worker@gmail.com',
 
   // Admin users passsword
   'super_admin_password' => 'Password123#',
-  'worker_admin_password' => 'Password123#',
+  'admin_password' => 'Password123#',
+  'worker_password' => 'Password123#',
 ]
 ```
 
@@ -132,7 +132,7 @@ Disable amazon S3 disk overwriting if you have it installed (optional).
 // config/apilogin.php
 return [
   // Disable Storage::disk s3 to public overwrite
-  'apilogin.overwrite_disk_s3' => false,
+  'overwrite_disk_s3' => false,
 ]
 ```
 
@@ -182,6 +182,7 @@ Two factor auth redirection url (vue).
 
 ```sh
 /login/f2a/{hash}
+/admin/login/f2a/{hash}
 ```
 
 ### Run tests
@@ -206,7 +207,7 @@ php artisan test --stop-on-failure --testsuite=Apilogin
 }
 ```
 
-## Notifications exmple
+## Notifications config
 
 Run first: php artisan notifications:table
 
