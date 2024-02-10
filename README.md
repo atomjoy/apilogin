@@ -2,7 +2,7 @@
 
 Multi guard authentication API with sessions in Laravel.
 
-## COnfig
+## How to install
 
 Install databases and update with composer.
 
