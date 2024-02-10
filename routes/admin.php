@@ -37,6 +37,6 @@ Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
 			return response()->json([
 				'message' => 'Authenticated.'
 			]);
-		});
+		})->middleware('throttle:20,1'); // 20/min
 	});
 });
