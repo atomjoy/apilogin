@@ -6,6 +6,7 @@ use Atomjoy\Apilogin\Http\Controllers\Admin\F2aController as AdminF2aController;
 use Atomjoy\Apilogin\Http\Controllers\Admin\LoginController as AdminLoginController;
 use Atomjoy\Apilogin\Http\Controllers\Admin\PasswordResetController as AdminPasswordResetController;
 use Atomjoy\Apilogin\Http\Controllers\Admin\LoggedController as AdminLoggedController;
+use Atomjoy\Apilogin\Http\Controllers\Admin\LogoutController as AdminLogoutController;
 
 // Admin panel
 Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
@@ -14,6 +15,7 @@ Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
 	// Public routes
 	Route::post('/login', [AdminLoginController::class, 'index'])->name('login');
 	Route::post('/password', [AdminPasswordResetController::class, 'index'])->name('password');
+	Route::get('/logout', [AdminLogoutController::class, 'index'])->name('logout');
 	Route::get('/logged', [AdminLoggedController::class, 'index'])->name('logged');
 	Route::post('/f2a', [AdminF2aController::class, 'index'])->name('f2a');
 

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
+use Atomjoy\Apilogin\Models\Admin;
 
 class LogoutUser
 {
@@ -20,7 +21,7 @@ class LogoutUser
 	 *
 	 * @return void
 	 */
-	public function __construct(public User $user)
+	public function __construct(public User|Admin $user)
 	{
 	}
 
