@@ -1,6 +1,6 @@
 <?php
 
-namespace Atomjoy\Apilogin\Http\Controllers;
+namespace Atomjoy\Apilogin\Http\Controllers\Admin;
 
 use Exception;
 use App\Http\Controllers\Controller;
