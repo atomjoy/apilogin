@@ -7,6 +7,8 @@ use Atomjoy\Apilogin\Http\Controllers\Admin\LoginController as AdminLoginControl
 use Atomjoy\Apilogin\Http\Controllers\Admin\PasswordResetController as AdminPasswordResetController;
 use Atomjoy\Apilogin\Http\Controllers\Admin\LoggedController as AdminLoggedController;
 use Atomjoy\Apilogin\Http\Controllers\Admin\LogoutController as AdminLogoutController;
+use Atomjoy\Apilogin\Http\Controllers\Admin\PasswordChangeController as AdminPasswordChangeController;
+use Atomjoy\Apilogin\Http\Controllers\Admin\UploadAvatarController as AdminUploadAvatarController;
 
 // Admin panel
 Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
@@ -19,23 +21,38 @@ Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
 	Route::get('/logged', [AdminLoggedController::class, 'index'])->name('logged');
 	Route::post('/f2a', [AdminF2aController::class, 'index'])->name('f2a');
 
-	// Private routes (guard admin)
+	// Private admin, worker routes (guard admin)
+	Route::middleware([
+		'auth:admin', 'apilogin_is_admin',
+		'role:' . config(
+			'apilogin.allowed_worker_roles',
+			'super_admin|admin|worker'
+		) . ',admin'
+	])->group(function () {
+		// Admin, worker routes
+		Route::post('/password/change', [AdminPasswordChangeController::class, 'index'])->name('change');
+		Route::post('/f2a/enable', [AdminF2aController::class, 'enable'])->name('f2a.enable');
+		Route::post('/f2a/disable', [AdminF2aController::class, 'disable'])->name('f2a.disable');
+		Route::post('/upload/avatar', [AdminUploadAvatarController::class, 'index'])->name('upload.avatar');
+		Route::post('/remove/avatar', [AdminUploadAvatarController::class, 'remove'])->name('remove.avatar');
+
+		Route::get('/test', function () {
+			return response()->json([
+				'message' => 'Authenticated.'
+			]);
+		})->middleware('throttle:20,1'); // 20/min
+	});
+
+	// Private admin routes (guard admin)
 	Route::middleware([
 		'auth:admin', 'apilogin_is_admin',
 		'role:' . config(
 			'apilogin.allowed_admin_roles',
-			'super_admin|admin|worker'
+			'super_admin|admin'
 		) . ',admin'
 	])->group(function () {
-		// 2FA auth on/off
-		Route::post('/f2a/enable', [AdminF2aController::class, 'enable'])->name('f2a.enable');
-		Route::post('/f2a/disable', [AdminF2aController::class, 'disable'])->name('f2a.disable');
-
-		// Admin panel routes
-		// ...
-
-		// Test route
-		Route::get('/test', function () {
+		// Admin only routes
+		Route::get('/test/admin', function () {
 			return response()->json([
 				'message' => 'Authenticated.'
 			]);

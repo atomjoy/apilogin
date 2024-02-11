@@ -4,6 +4,7 @@ namespace Atomjoy\Apilogin\Http\Requests;
 
 use Exception;
 use App\Models\User;
+use Atomjoy\Apilogin\Models\Admin;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
@@ -15,7 +16,7 @@ class PasswordChangeRequest extends FormRequest
 
 	public function authorize()
 	{
-		if (auth()->user() instanceof User) {
+		if (auth()->user() instanceof User or auth()->user() instanceof Admin) {
 			return true; // Allow logged
 		}
 
