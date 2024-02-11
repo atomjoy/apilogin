@@ -149,7 +149,7 @@ class UploadAvatarController extends Controller
 
 		return config(
 			'apilogin.error_file_placeholder',
-			'https://placehold.co/256x256?font=roboto&text=Invalid\nImage'
+			'https://placehold.co/256x256?font=roboto&text=Invalid\nFile'
 		);
 		// 'https://picsum.photos/256/256.webp?grayscale&blur=2'
 	}
