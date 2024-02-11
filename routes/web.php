@@ -1,6 +1,7 @@
 <?php
 
 // User
+
 use Atomjoy\Apilogin\Http\Controllers\AddressController;
 use Atomjoy\Apilogin\Http\Controllers\ProfileController;
 use Atomjoy\Apilogin\Http\Controllers\ActivateController;
@@ -20,6 +21,9 @@ use Atomjoy\Apilogin\Http\Controllers\AccountDeleteController;
 use Atomjoy\Apilogin\Http\Controllers\NotificationsController;
 use Atomjoy\Apilogin\Http\Controllers\F2aController;
 use Illuminate\Support\Facades\Route;
+
+// Show s3 image url ?path=file/path/here.webp
+Route::get('web/api/image/url', [UploadAvatarController::class, 'showUrl'])->name('web.api.image.url');
 
 // User routes
 Route::prefix('web/api')->name('web.api.')->middleware([

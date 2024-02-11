@@ -134,4 +134,23 @@ class UploadAvatarController extends Controller
 			throw new JsonException(__('apilogin.show.avatar.error'), 422);
 		}
 	}
+
+	/**
+	 *	Show s3 file url.
+	 */
+	public function showUrl()
+	{
+		$path = stripslashes(request('path'));
+
+		if (Storage::disk($this->disk)->exists($path)) {
+			return Storage::disk($this->disk)->url($path);
+			// return Storage::disk($this->disk)->temporaryUrl($path, now()->addMinutes(60));
+		}
+
+		return config(
+			'apilogin.error_file_placeholder',
+			'https://placehold.co/256x256?font=roboto&text=Invalid\nImage'
+		);
+		// 'https://picsum.photos/256/256.webp?grayscale&blur=2'
+	}
 }

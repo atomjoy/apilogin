@@ -10,6 +10,9 @@ use Atomjoy\Apilogin\Http\Controllers\Admin\LogoutController as AdminLogoutContr
 use Atomjoy\Apilogin\Http\Controllers\Admin\PasswordChangeController as AdminPasswordChangeController;
 use Atomjoy\Apilogin\Http\Controllers\Admin\UploadAvatarController as AdminUploadAvatarController;
 
+// Show s3 image url ?path=file/path/here.webp
+Route::get('web/api/admin/image/url', [AdminUploadAvatarController::class, 'showUrl'])->name('web.api.admin.image.url');
+
 // Admin panel
 Route::prefix('web/api/admin')->name('web.api.admin')->middleware([
 	'web', 'apilogin'
