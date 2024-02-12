@@ -23,7 +23,7 @@ use Atomjoy\Apilogin\Http\Controllers\F2aController;
 use Illuminate\Support\Facades\Route;
 
 // Show s3 image url <img src="img/url?path=image/path/here.webp" />
-Route::get('img/url', [UploadAvatarController::class, 'showUrl'])->name('img.url');
+Route::get('img/url', [UploadAvatarController::class, 'getUrl'])->name('img.url');
 
 // User routes
 Route::prefix('web/api')->name('web.api.')->middleware([

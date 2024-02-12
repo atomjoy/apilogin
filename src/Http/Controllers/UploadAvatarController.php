@@ -138,7 +138,7 @@ class UploadAvatarController extends Controller
 	/**
 	 *	Show s3 file url.
 	 */
-	public function showUrl()
+	public function getUrl()
 	{
 		$path = stripslashes(request('path'));
 
