@@ -1,7 +1,6 @@
 <?php
 
 // User
-
 use Atomjoy\Apilogin\Http\Controllers\AddressController;
 use Atomjoy\Apilogin\Http\Controllers\ProfileController;
 use Atomjoy\Apilogin\Http\Controllers\ActivateController;

@@ -136,11 +136,11 @@ class UploadAvatarController extends Controller
 	}
 
 	/**
-	 *	Show s3 file url.
+	 *	Get s3 file url.
 	 */
 	public function getUrl()
 	{
-		$path = stripslashes(request('path'));
+		$path = strip_tags(stripslashes(request('path')));
 
 		if (Storage::disk($this->disk)->exists($path)) {
 			return Storage::disk($this->disk)->url($path);
